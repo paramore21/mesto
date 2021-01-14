@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class='page'>
+  <header class='header'>
+    <img class='header__logo' src='./images/logo.svg'>
+  </header>
+  <main class='main'>
+    <section class='profile'>
+      <img class='profile__avatar' src="./images/avatar.png">
+      <ul class="profile__info">
+        <li class="profile__info-item"><h1 class='profile__name'>Жак-Ив Кусто</h1><img src="images/Edit_Button.svg" class="profile__edit-button"></li>
+        <li class="profile__info-item"><h2 class="profile__description">Исследователь океана</h2></li>
+      </ul>  
+      <img class="profile__add-information" src="./images/Add_Button.svg">
+    </section>
+    <section class="profile__edit-form">
+      <div class="profile__close-form"></div>
+      <h2 class="profile__edit-profile">Редактировать профиль</h2>
+      <input type='text' class="profile__edit-name" placeholder="Жак-Ив Кусто">
+      <input type="text" class="profile__edit-info" placeholder="Исследователь океана">
+      <button class="profile__submit">Сохранить</button>
+    </section>
+    <section class='elements'>
+      <section class='element'>
+        <img class="element__image" src="./images/milky-way.jpg">
+        <h2 class='element__title'>Карачаевск</h2>
+        <img class="element__like-button" src='./images/Like.svg'>
+      </section>
+      <section class='element'>
+        <img class="element__image" src="./images/mountain.jpg">
+        <h2 class='element__title'>Гора Эльбрус</h2>
+        <img class="element__like-button" src='./images/Like.svg'>
+      </section>
+      <section class='element'>
+        <img class="element__image" src="./images/waterfall.jpg">
+        <h2 class='element__title'>Домбай</h2>
+        <img class="element__like-button" src='./images/Like.svg'>
+      </section>
+      <section class='element'>
+        <img class="element__image" src="./images/snowy-forest.jpg">
+        <h2 class='element__title'>Домбай</h2>
+        <img class="element__like-button" src='./images/Like.svg'>
+      </section>
+      <section class='element'>
+        <img class="element__image" src="./images/beach.jpg">
+        <h2 class='element__title'>Карачаево-Черкессия</h2>
+        <img class="element__like-button" src='./images/Like.svg'>
+      </section>
+      <section class='element'>
+        <img class="element__image" src="./images/elbrus.jpg">
+        <h2 class='element__title'>Гора Эльбруск</h2>
+        <img class="element__like-button" src='./images/Like.svg'>
+      </section>
+    </section>
+  </main>
+  <footer class='footer'>
+    <p class='footer__author'>&copy; 2020 Mesto Russia</p>
+  </footer>
+  <script src="./scripts/main.js"></script>
+</body>
+</html>

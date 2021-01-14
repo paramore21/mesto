@@ -1,0 +1,8 @@
+.profile__add-information {
+  border: 3px solid #ffffff;
+  margin: 25px 0 0 200px;
+  box-sizing: border-box;
+  width: 149px;
+  height: 50px;
+  justify-self: flex-end;
+}

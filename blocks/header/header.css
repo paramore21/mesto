@@ -1,0 +1,6 @@
+.header {
+  margin: 45px 0;
+  padding-bottom: 40px;
+  display: flex;
+  border-bottom: 1px solid #545454;
+}

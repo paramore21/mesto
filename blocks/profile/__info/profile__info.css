@@ -1,4 +1,12 @@
 .profile__info {
-  margin: 0;
-  padding: 17px 27px;
+  margin: 0 auto;
+  padding: 23px 27px 36px 27px;
+  justify-content: center;
+  position: relative;
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__info {
+    padding: 17px 27px;
+  }
 }

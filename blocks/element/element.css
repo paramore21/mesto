@@ -3,4 +3,6 @@
   grid-template-rows: 282px 79px;
   grid-template-columns: 282px;
   align-items:center;
+  background-color: #ffffff;
+  border-radius: 15px;
 }

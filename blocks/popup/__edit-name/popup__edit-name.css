@@ -8,4 +8,6 @@
   border: 0;
   border-bottom: 1px solid #000000;
   outline: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -1,11 +1,12 @@
 .profile {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 282px;
+  grid-template-rows: repeat(3, auto);
+  margin: 0;
 }
 
 @media screen and (min-width: 768px) {
-  .profile {
-    flex-direction: row;
+  .profile {  
+    grid-template-columns: 150px 294px 40px 400px;
   }
 }

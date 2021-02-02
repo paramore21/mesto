@@ -7,6 +7,9 @@
   top: -40px;
   right: -15px;
   overflow: visible;
+  background-color: #ffffff00;
+  border: none;
+  box-shadow: 0;
 }
 
 @media screen and (min-width: 768px) {

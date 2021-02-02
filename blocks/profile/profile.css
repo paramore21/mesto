@@ -7,6 +7,13 @@
 
 @media screen and (min-width: 768px) {
   .profile {  
-    grid-template-columns: 150px 294px 40px 400px;
+    grid-template-columns: 130px 320px 24px 200px;
+    column-gap: 10px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .profile {  
+    grid-template-columns: 130px 320px 24px 380px;
+    column-gap: 10px;
   }
 }

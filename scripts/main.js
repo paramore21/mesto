@@ -6,11 +6,14 @@ let container = document.querySelector(".profile__info");
 let previousName = document.querySelector(".profile__name");
 let previousDescription = document.querySelector(".profile__description");
 let like = document.querySelector(".element__like-button");
-let name = form.querySelector(".popup__edit-name");
-let description = form.querySelector(".popup__edit-info");
+let inputName = document.querySelector(".popup__edit-name");
+let inputDescription = document.querySelector(".popup__edit-description");
+
 
 function openPopup() {
   form.classList.add("popup_opened");
+  inputName.value = previousName.textContent;
+  inputDescription.value = previousDescription.textContent;
 }   
 
 function closePopup() {
@@ -19,8 +22,8 @@ function closePopup() {
 
 function editInformation(evt) {
   evt.preventDefault();
-  previousName.textContent = name.value;
-  previousDescription.textContent = description.value;
+  previousName.textContent = inputName.value;
+  previousDescription.textContent = inputDescription.value;
   closePopup();
 }
 

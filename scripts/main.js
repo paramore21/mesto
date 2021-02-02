@@ -6,8 +6,8 @@ let container = document.querySelector(".profile__info");
 let previousName = document.querySelector(".profile__name");
 let previousDescription = document.querySelector(".profile__description");
 let like = document.querySelector(".element__like-button");
-let inputName = document.querySelector(".popup__edit-name");
-let inputDescription = document.querySelector(".popup__edit-description");
+let inputName = document.querySelector(".popup__edit_type_name");
+let inputDescription = document.querySelector(".popup__edit_type_description");
 
 
 function openPopup() {

@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
+  <!--Тоже прошу прощения, вторая отправка была неверной, выгрузила не ту версию кода, почему-то
+      с семейством шрифтов затупила) Надеюсь в этот раз всё отлично. 
+  -->
   <body class="page">
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Логотип страницы"/>
@@ -14,8 +17,8 @@
       <form class="popup__container" name="form">
         <button class="popup__close-form" type="button"></button>
         <h2 class="popup__edit-profile">Редактировать профиль</h2>
-        <input type="text" class="popup__edit popup__edit-name" name="name" value=""/>
-        <input type="text" class="popup__edit popup__edit-description" name="description" value=""/>
+        <input type="text" class="popup__edit popup__edit_type_name" name="name" value=""/>
+        <input type="text" class="popup__edit popup__edit_type_description" name="description" value=""/>
         <button type="submit" class="popup__submit">Сохранить</button>
       </form>
     </section>
@@ -30,36 +33,36 @@
         <button type="button" class="profile__add-information"></button>
       </section>
       <section class="elements">
-        <section class="element">
+        <div class="element">
           <img class="element__image" src="./images/milky-way.jpg" alt="Млечный путь"/>
           <h2 class="element__title">Млечный путь</h2>
           <button type="button" class="element__like-button"></button>
-        </section>
-        <section class="element">
+        </div>
+        <div class="element">
           <img class="element__image" src="./images/mountain.jpg" alt="Гора Эльбрус"/>
           <h2 class="element__title">Гора Эльбрус</h2>
           <button type="button" class="element__like-button"></button>
-        </section>
-        <section class="element">
+        </div>
+        <div class="element">
           <img class="element__image" src="./images/waterfall.jpg" alt="Водопад"/>
           <h2 class="element__title">Водопад</h2>
           <button type="button" class="element__like-button"></button>
-        </section>
-        <section class="element">
+        </div>
+        <div class="element">
           <img class="element__image" src="./images/snowy-forest.jpg" alt="Зимний лес"/>
           <h2 class="element__title">Зимний лес</h2>
           <button type="button" class="element__like-button"></button>
-        </section>
-        <section class="element">
+        </div>
+        <div class="element">
           <img class="element__image" src="./images/beach.jpg" alt="Прибрежные волны"/>
           <h2 class="element__title">Прибрежные волны</h2>
           <button type="button" class="element__like-button"></button>
-        </section>
-        <section class="element">
+        </div>
+        <div class="element">
           <img class="element__image" src="./images/elbrus.jpg" alt="Горный хребет"/>
           <h2 class="element__title">Горный хребет</h2>
           <button type="button" class="element__like-button"></button>
-        </section>
+        </div>
       </section>
     </main>
     <footer class="footer">

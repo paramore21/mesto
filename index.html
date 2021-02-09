@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
-  <!--Тоже прошу прощения, вторая отправка была неверной, выгрузила не ту версию кода, почему-то
-      с семейством шрифтов затупила) Надеюсь в этот раз всё отлично. 
-  -->
   <body class="page">
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Логотип страницы"/>
@@ -22,6 +19,15 @@
         <button type="submit" class="popup__submit">Сохранить</button>
       </form>
     </section>
+    <section class="place">
+      <form class="place__container" name="add-place">
+        <button class="place__close-form" type="button"></button>
+        <h2 class="place__new-place">Новое место</h2>
+        <input type="text" class="place__edit place__edit_type_place" name="place" value="" placeholder="Название"/>
+        <input type="text" class="place__edit place__efit_type_url" name="url" value="" placeholder="Ссылка на картинку"/>
+        <button type="submit" class="place__submit">Создать</button>
+      </form>
+    </section>
     <main class="main">
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.png" alt="Жак-Ив Кусто"/>
@@ -30,36 +36,42 @@
           <h2 class="profile__description">Исследователь океана</h2>
         </div>
         <button type="button" class="profile__edit-button"></button>
-        <button type="button" class="profile__add-information"></button>
+        <button type="button" class="profile__add-card"></button>
       </section>
       <section class="elements">
         <div class="element">
           <img class="element__image" src="./images/milky-way.jpg" alt="Млечный путь"/>
+          <button type="button" class="element__delete"></button>
           <h2 class="element__title">Млечный путь</h2>
           <button type="button" class="element__like-button"></button>
         </div>
         <div class="element">
           <img class="element__image" src="./images/mountain.jpg" alt="Гора Эльбрус"/>
+          <button type="button" class="element__delete"></button>
           <h2 class="element__title">Гора Эльбрус</h2>
           <button type="button" class="element__like-button"></button>
         </div>
         <div class="element">
           <img class="element__image" src="./images/waterfall.jpg" alt="Водопад"/>
+          <button type="button" class="element__delete"></button>
           <h2 class="element__title">Водопад</h2>
           <button type="button" class="element__like-button"></button>
         </div>
         <div class="element">
           <img class="element__image" src="./images/snowy-forest.jpg" alt="Зимний лес"/>
+          <button type="button" class="element__delete"></button>
           <h2 class="element__title">Зимний лес</h2>
           <button type="button" class="element__like-button"></button>
         </div>
         <div class="element">
           <img class="element__image" src="./images/beach.jpg" alt="Прибрежные волны"/>
+          <button type="button" class="element__delete"></button>
           <h2 class="element__title">Прибрежные волны</h2>
           <button type="button" class="element__like-button"></button>
         </div>
         <div class="element">
           <img class="element__image" src="./images/elbrus.jpg" alt="Горный хребет"/>
+          <button type="button" class="element__delete"></button>
           <h2 class="element__title">Горный хребет</h2>
           <button type="button" class="element__like-button"></button>
         </div>

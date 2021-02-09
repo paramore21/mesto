@@ -1,4 +1,4 @@
-.profile__add-information {
+.profile__add-card {
   margin: 0 auto;
   box-sizing: border-box;
   width: 280px;
@@ -14,7 +14,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .profile__add-information {
+  .profile__add-card {
     margin: 35px 0;
     width: 149px;
     padding: 0;
@@ -23,7 +23,7 @@
   }
 }
 
-.profile__add-information:hover {
+.profile__add-card:hover {
   cursor: pointer;
   opacity: 0.6;
   transition: opacity 0.2s ease;

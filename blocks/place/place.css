@@ -1,4 +1,4 @@
-.popup {
+.place {
   background-color: #00000096;
   max-width: 1280px;
   max-height: 100%;
@@ -11,4 +11,5 @@
   justify-content: center;
   align-content: center;
   margin: 0;
+  z-index: 2;
 }

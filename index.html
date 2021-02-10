@@ -25,7 +25,7 @@
         <h2 class="place__new-place">Новое место</h2>
         <input type="text" class="place__edit place__edit_type_place" name="place" value="" placeholder="Название"/>
         <input type="text" class="place__edit place__efit_type_url" name="url" value="" placeholder="Ссылка на картинку"/>
-        <button type="submit" class="place__submit">Создать</button>
+        <button type="button" class="place__submit">Создать</button>
       </form>
     </section>
     <main class="main">
@@ -39,44 +39,16 @@
         <button type="button" class="profile__add-card"></button>
       </section>
       <section class="elements">
-        <div class="element">
-          <img class="element__image" src="./images/milky-way.jpg" alt="Млечный путь"/>
-          <button type="button" class="element__delete"></button>
-          <h2 class="element__title">Млечный путь</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/mountain.jpg" alt="Гора Эльбрус"/>
-          <button type="button" class="element__delete"></button>
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/waterfall.jpg" alt="Водопад"/>
-          <button type="button" class="element__delete"></button>
-          <h2 class="element__title">Водопад</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/snowy-forest.jpg" alt="Зимний лес"/>
-          <button type="button" class="element__delete"></button>
-          <h2 class="element__title">Зимний лес</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/beach.jpg" alt="Прибрежные волны"/>
-          <button type="button" class="element__delete"></button>
-          <h2 class="element__title">Прибрежные волны</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/elbrus.jpg" alt="Горный хребет"/>
-          <button type="button" class="element__delete"></button>
-          <h2 class="element__title">Горный хребет</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
       </section>
     </main>
+    <template id="template">
+      <div class="element">
+        <img class="element__image" />
+        <button type="button" class="element__delete"></button>
+        <h2 class="element__title"></h2>
+        <button type="button" class="element__like-button"></button>
+      </div>
+    </template>
     <footer class="footer">
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>

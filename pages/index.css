@@ -28,6 +28,12 @@
 @import url("../blocks/place/__edit/_type/_place/place__edit_type_place.css");
 @import url("../blocks/place/__edit/_type/_url/place__edit_type_url.css");
 @import url("../blocks/place/__submit/place__submit.css");
+@import url("../blocks/image/image.css");
+@import url("../blocks/image/_opened/image_opened.css");
+@import url("../blocks/image/__container/image__container.css");
+@import url("../blocks/image/__close/image__close.css");
+@import url("../blocks/image/__item/image__item.css");
+@import url("../blocks/image/__title/image__title.css");
 @import url("../blocks/elements/elements.css");
 @import url("../blocks/element/element.css");
 @import url("../blocks/element/__title/element__title.css");

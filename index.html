@@ -28,13 +28,15 @@
         <button type="button" class="place__submit">Создать</button>
       </form>
     </section>
-    <section class="image image_opened">
-      <div class="image__container">
-        <button type="button" class="image__close"></button>
-        <img class="image__item" src="./images/milky-way.jpg"/>
-        <h3 class="image__title">image image</h3>
-      </div>
-    </section>
+    <template id="image__template">
+      <section class="image image_opened">
+        <div class="image__container">
+          <button type="button" class="image__close"></button>
+          <img class="image__item" src="" alt=""/>
+          <h3 class="image__title"></h3>
+        </div>
+      </section>
+    </template>  
     <main class="main">
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.png" alt="Жак-Ив Кусто"/>
@@ -48,7 +50,7 @@
       <section class="elements">
       </section>
     </main>
-    <template id="template">
+    <template id="template__card">
       <div class="element">
         <img class="element__image" />
         <button type="button" class="element__delete"></button>

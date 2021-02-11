@@ -14,6 +14,8 @@ const placeSubmit = place.querySelector(".place__submit");
 const addPlace = document.querySelector(".profile__add-card");
 const closePlace = document.querySelector(".place__close-form");
 const elementContainer = document.querySelector(".elements");
+const imageClose = document.querySelector(".image__close");
+const imageContainer = document.querySelector(".image");
 
 const initialCards = [
   {
@@ -66,6 +68,10 @@ function closePopup() {
   form.classList.remove("popup_opened");
 }
 
+function closeImage(){
+  imageContainer.classList.remove("image_opened");
+}
+
 function editInformation(evt) {
   evt.preventDefault();
   previousName.textContent = inputName.value;
@@ -90,7 +96,6 @@ function likeEventRegister() {
 
 function removeEvent(ev) {
   const button = ev.target;
-  console.log(`hehehehe`);
   if (button) {
     const block = button.parentNode;
     block.parentNode.removeChild(block);
@@ -105,7 +110,7 @@ function deleteImageEvent() {
   });
 }
 
-function addCardToContailer(name, link) {
+function addCardToContainer(name, link) {
   const div = document.createElement("div");
   div.classList.add("element");
 
@@ -134,12 +139,12 @@ function addCardToContailer(name, link) {
 
 function render() {
   initialCards.forEach((el) => {
-    addCardToContailer(el.name, el.link);
+    addCardToContainer(el.name, el.link);
   });
 }
 
 function renderAdded(index) {
-  addCardToContailer(initialCards[index].name, initialCards[index].link);
+  addCardToContainer(initialCards[index].name, initialCards[index].link);
 }
 
 function addItem() {
@@ -148,6 +153,29 @@ function addItem() {
   closeAddPlace();
   deleteImageEvent();
   likeEventRegister();
+  openCardEvent();
+}
+
+function displayCard(name, link){
+  const div = document.createElement("div")
+
+  const img = document.createElement("img")
+  img.classList.add("image__item");
+  img.setAttribute("src") = link
+  img.setAttribute("alt") = name
+  
+  
+  const title = document.createElement("h3")
+  title.classList.add("image__title")
+  title.textContent = name
+
+
+}
+
+function openCardEvent(){
+  const cards = document.querySelectorAll(".element__image")
+  const img = document.createElement("img")
+
 }
 
 render();
@@ -159,6 +187,7 @@ closeForm.addEventListener("click", closePopup);
 addPlace.addEventListener("click", openPlace);
 placeSubmit.addEventListener("click", addItem);
 closePlace.addEventListener("click", closeAddPlace);
+imageClose.addEventListener("click", closeImage);
 
 // const elementTemplate = document.querySelector("#element").content;
 // const image = document.querySelector(".element__image").cloneNode(true);

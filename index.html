@@ -10,33 +10,6 @@
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Логотип страницы"/>
     </header>
-    <section class="popup">
-      <form class="popup__container" name="form">
-        <button class="popup__close-form" type="button"></button>
-        <h2 class="popup__edit-profile">Редактировать профиль</h2>
-        <input type="text" class="popup__edit popup__edit_type_name" name="name" value=""/>
-        <input type="text" class="popup__edit popup__edit_type_description" name="description" value=""/>
-        <button type="submit" class="popup__submit">Сохранить</button>
-      </form>
-    </section>
-    <section class="place">
-      <form class="place__container" name="add-place">
-        <button class="place__close-form" type="button"></button>
-        <h2 class="place__new-place">Новое место</h2>
-        <input type="text" class="place__edit place__edit_type_place" name="place" value="" placeholder="Название"/>
-        <input type="text" class="place__edit place__efit_type_url" name="url" value="" placeholder="Ссылка на картинку"/>
-        <button type="button" class="place__submit">Создать</button>
-      </form>
-    </section>
-    <template id="image__template">
-      <section class="image image_opened">
-        <div class="image__container">
-          <button type="button" class="image__close"></button>
-          <img class="image__item" src="" alt=""/>
-          <h3 class="image__title"></h3>
-        </div>
-      </section>
-    </template>  
     <main class="main">
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.png" alt="Жак-Ив Кусто"/>
@@ -50,6 +23,31 @@
       <section class="elements">
       </section>
     </main>
+    <section class="popup popup_type_edit">
+      <form class="popup__container" name="form">
+        <button class="popup__close-form" type="button"></button>
+        <h2 class="popup__edit-profile">Редактировать профиль</h2>
+        <input type="text" class="popup__edit popup__edit_type_name" name="name" value=""/>
+        <input type="text" class="popup__edit popup__edit_type_description" name="description" value=""/>
+        <button type="submit" class="popup__submit">Сохранить</button>
+      </form>
+    </section>
+    <section class="popup popup_type_place">
+      <form class="place__container" name="add-place">
+        <button class="place__close-form" type="button"></button>
+        <h2 class="place__new-place">Новое место</h2>
+        <input type="text" class="place__edit place__edit_type_place" name="place" value="" placeholder="Название"/>
+        <input type="text" class="place__edit place__edit_type_url" name="url" value="" placeholder="Ссылка на картинку"/>
+        <button type="button" class="place__submit">Создать</button>
+      </form>
+    </section> 
+    <section class="popup popup_type_image">
+      <div class="image__container">
+        <button type="button" class="image__close"></button>
+        <img class="image__item" src="" alt=""/>
+        <h3 class="image__title"></h3>
+      </div>
+    </section> 
     <template id="template__card">
       <div class="element">
         <img class="element__image" />

@@ -1,21 +1,29 @@
-const form = document.querySelector(".popup");
-const submit = form.querySelector(".popup__submit");
-const closeForm = form.querySelector(".popup__close-form");
-const edit = document.querySelector(".profile__edit-button");
-const container = document.querySelector(".profile__info");
-const previousName = document.querySelector(".profile__name");
-const previousDescription = document.querySelector(".profile__description");
-const inputName = form.querySelector(".popup__edit_type_name");
-const inputDescription = form.querySelector(".popup__edit_type_description");
-const place = document.querySelector(".place");
-const newPlaceName = place.querySelector(".place__edit_type_place");
-const newPlaceUrl = place.querySelector(".place__efit_type_url");
-const placeSubmit = place.querySelector(".place__submit");
-const addPlace = document.querySelector(".profile__add-card");
-const closePlace = document.querySelector(".place__close-form");
-const elementContainer = document.querySelector(".elements");
-const imageClose = document.querySelector(".image__close");
-const imageContainer = document.querySelector(".image");
+const editContainer = document.querySelector(".popup_type_edit")    /* контейнер формы*/ 
+const placeContainer = document.querySelector(".popup_type_place")  /* контейнер добавления карточки*/ 
+const imageContainer = document.querySelector(".popup_type_image")  /* контейнер карточки*/ 
+const elementsContainer = document.querySelector(".elements")       /* тут карточки */
+
+const profileName = document.querySelector(".profile__name")                      /* имя на странице */
+const profileDescription = document.querySelector(".profile__description")        /* описание на странице */
+
+const editButton = document.querySelector(".profile__edit-button")           /* кнопка изменить, открыте формы */
+const addCardButton = document.querySelector(".profile__add-card")           /* кнопка добавить карту */
+const closeEditButton = editContainer.querySelector(".popup__close-form")    /* закрыть форму */
+const editSubmit = editContainer.querySelector(".popup__submit")             /* сохранить изменения формы */
+const closePlaceButton = placeContainer.querySelector(".place__close-form")  /* закрыть добавление карточки*/
+const placeSubmit = placeContainer.querySelector(".place__submit")            /* сохранить новую карточку */
+const imageClose = document.querySelector(".image__close")
+
+const editName = editContainer.querySelector(".popup__edit_type_name")
+const editDescription = editContainer.querySelector(".popup__edit_type_description")
+
+const placeName = placeContainer.querySelector(".place__edit_type_place")  /* название новой карточки*/
+const placeLink = placeContainer.querySelector(".place__edit_type_url")    /* ссылка на картинку */
+
+const template = document.querySelector("#template__card").content /* реднер шаблонов */
+
+const form = document.querySelector(".popup__container")  /* все формы */
+
 
 const initialCards = [
   {
@@ -50,147 +58,114 @@ const initialCards = [
   },
 ];
 
-function openEdit() {
-  form.classList.add("popup_opened");
-  inputName.value = previousName.textContent;
-  inputDescription.value = previousDescription.textContent;
+function openEdit(){ /* это для профиля*/
+  editContainer.classList.add("popup_opened");
+  editName.value = profileName.textContent
+  editDescription.value = profileDescription.textContent
 }
 
-function openPlace() {
-  place.classList.add("place_opened");
-}
-
-function closeAddPlace() {
-  place.classList.remove("place_opened");
-}
-
-function closePopup() {
-  form.classList.remove("popup_opened");
-}
-
-function closeImage(){
-  imageContainer.classList.remove("image_opened");
-}
-
-function editInformation(evt) {
+function editInfo(evt){
   evt.preventDefault();
-  previousName.textContent = inputName.value;
-  previousDescription.textContent = inputDescription.value;
-  closePopup();
+  profileDescription.textContent = editDescription.value
+  profileName.textContent = editName.value
+  closePopup(editContainer);
 }
 
-function likeToggle(ev) {
-  const elem = ev.target;
-  if (elem) {
-    elem.classList.toggle("element__like-button_active");
+
+function openCard(){ /* это для добавления карточки */
+  placeContainer.classList.add("popup_opened")
+  
+}
+
+function closePopup(container){
+  container.classList.remove("popup_opened");
+  form.reset()
+}
+
+
+function renderCards(){ /* это покажет карточки */
+  initialCards.forEach(item => {
+    const div = template.querySelector(".element").cloneNode(true)
+    div.querySelector(".element__image").src = item.link
+    div.querySelector(".element__image").alt = item.name
+    div.querySelector(".element__title").textContent = item.name
+    elementsContainer.append(div)
+  })
+}
+
+/* для удаления */
+function removeElement(ev){
+  const elem = ev.target
+  if(elem){
+    const block = elem.parentNode
+    block.parentNode.removeChild(block)
   }
 }
 
-function likeEventRegister() {
-  const likeButton = document.querySelectorAll(".element__like-button");
-  likeButton.forEach((elem) => {
-    elem.removeEventListener("click", likeToggle);
-    elem.addEventListener("click", likeToggle);
-  });
+function deleteCard(){
+  const deleteButton = document.querySelectorAll(".element__delete")
+  deleteButton.forEach((node) => {  
+    node.removeEventListener("click", removeElement) 
+    node.addEventListener("click", removeElement)
 }
+)}
 
-function removeEvent(ev) {
-  const button = ev.target;
-  if (button) {
-    const block = button.parentNode;
-    block.parentNode.removeChild(block);
+/* для лайка */
+function likeToggle(ev){
+  const elem = ev.target
+  if(elem){
+    elem.classList.toggle("element__like-button_active")
   }
 }
-
-function deleteImageEvent() {
-  const elementDelete = document.querySelectorAll(".element__delete");
-  elementDelete.forEach((node) => {
-    node.removeEventListener("click", removeEvent);
-    node.addEventListener("click", removeEvent);
-  });
+function like(){
+  const likeButton = document.querySelectorAll(".element__like-button")
+  likeButton.forEach((item) => {
+    item.removeEventListener("click", likeToggle)
+    item.addEventListener("click", likeToggle)
+    })
 }
 
-function addCardToContainer(name, link) {
-  const div = document.createElement("div");
-  div.classList.add("element");
 
-  const img = document.createElement("img");
-  img.classList.add("element__image");
-  img.setAttribute("src", link);
-  img.setAttribute("alt", name);
-
-  const buttonDelete = document.createElement("button");
-  buttonDelete.classList.add("element__delete");
-
-  const title = document.createElement("h2");
-  title.classList.add("element__title");
-  title.textContent = name;
-
-  const likeBtn = document.createElement("button");
-  likeBtn.classList.add("element__like-button");
-
-  div.appendChild(img);
-  div.appendChild(buttonDelete);
-  div.appendChild(title);
-  div.appendChild(likeBtn);
-
-  elementContainer.prepend(div);
+function openImage(){  /* откроет фотографию */
+  const images = document.querySelectorAll(".element__image")
+  const image = imageContainer.querySelector(".image__item")
+  const imageTitle = imageContainer.querySelector(".image__title")
+  //console.log(images)
+  images.forEach(item => {
+    item.addEventListener("click", () => {
+      imageContainer.classList.add("popup_opened")
+      image.src = item.currentSrc
+      image.alt = item.alt
+      imageTitle.textContent = item.alt
+    })
+  })
 }
 
-function render() {
-  initialCards.forEach((el) => {
-    addCardToContainer(el.name, el.link);
-  });
+function addCard(){ /* добавит карточку */
+  const div = template.querySelector(".element").cloneNode(true)
+  div.querySelector(".element__image").src = placeLink.value
+  div.querySelector(".element__image").alt = placeName.value
+  div.querySelector(".element__title").textContent = placeName.value
+  elementsContainer.prepend(div);
+  closePopup(placeContainer)
+  openImage()
+  deleteCard()
+  like()
 }
 
-function renderAdded(index) {
-  addCardToContainer(initialCards[index].name, initialCards[index].link);
-}
+renderCards() 
+deleteCard()
+like()
+openImage()
+////////////////////**** Работа с формой профиля ****/////////////////////////
+editButton.addEventListener("click", openEdit)
+closeEditButton.addEventListener("click", () => closePopup(editContainer))
+editSubmit.addEventListener("click", editInfo)
 
-function addItem() {
-  initialCards.push({ name: newPlaceName.value, link: newPlaceUrl.value });
-  renderAdded(initialCards.length - 1);
-  closeAddPlace();
-  deleteImageEvent();
-  likeEventRegister();
-  openCardEvent();
-}
-
-function displayCard(name, link){
-  const div = document.createElement("div")
-
-  const img = document.createElement("img")
-  img.classList.add("image__item");
-  img.setAttribute("src") = link
-  img.setAttribute("alt") = name
-  
-  
-  const title = document.createElement("h3")
-  title.classList.add("image__title")
-  title.textContent = name
+////////////////////**** Работа с формой добавления карточки ****/////////////////////////
+addCardButton.addEventListener("click", openCard)
+closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
+placeSubmit.addEventListener("click", addCard)
 
 
-}
-
-function openCardEvent(){
-  const cards = document.querySelectorAll(".element__image")
-  const img = document.createElement("img")
-
-}
-
-render();
-deleteImageEvent();
-likeEventRegister();
-form.addEventListener("submit", editInformation);
-edit.addEventListener("click", openEdit);
-closeForm.addEventListener("click", closePopup);
-addPlace.addEventListener("click", openPlace);
-placeSubmit.addEventListener("click", addItem);
-closePlace.addEventListener("click", closeAddPlace);
-imageClose.addEventListener("click", closeImage);
-
-// const elementTemplate = document.querySelector("#element").content;
-// const image = document.querySelector(".element__image").cloneNode(true);
-// const deleteItem = document.querySelector(".element__delete").cloneNode(true);
-// const header = document.querySelector(".element__title").cloneNode(true);
-// const likeButton = document.querySelector(".element__like-button").cloneNode(true);
+imageClose.addEventListener("click", () => closePopup(imageContainer))

@@ -4,9 +4,9 @@
   background-image: url("../../../images/Close_Icon.svg");
   background-size: 100%;
   position: absolute;
-  top: -40px;
-  right: -15px;
   overflow: visible;
+  top: -15px;
+  right: -15px;
   background-color: #ffffff00;
   border: none;
   box-shadow: 0;

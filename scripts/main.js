@@ -103,8 +103,8 @@ function removeElement(ev){
 }
 
 function deleteCard(){
-  const deleteButton = document.querySelectorAll(".element__delete")
-  deleteButton.forEach((node) => {  
+  const deleteButtons = document.querySelectorAll(".element__delete")
+  deleteButtons.forEach((node) => {  
     node.removeEventListener("click", removeElement) 
     node.addEventListener("click", removeElement)
 }
@@ -118,8 +118,8 @@ function likeToggle(ev){
   }
 }
 function like(){
-  const likeButton = document.querySelectorAll(".element__like-button")
-  likeButton.forEach((item) => {
+  const likeButtons = document.querySelectorAll(".element__like-button")
+  likeButtons.forEach((item) => {
     item.removeEventListener("click", likeToggle)
     item.addEventListener("click", likeToggle)
     })

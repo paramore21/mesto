@@ -1,9 +1,9 @@
 .image {
-  display: none;
+  background-color: #00000096;
   max-width: 1280px;
   max-height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
+  display: none;
   top: 0;
   right: 0;
   left: 0;
@@ -12,4 +12,10 @@
   align-content: center;
   margin: 0;
   z-index: 2;
+}
+
+@media screen and (min-width: 1280px){
+  .image {
+    width: 100%;
+  }
 }

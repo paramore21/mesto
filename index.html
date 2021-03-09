@@ -24,7 +24,7 @@
       </section>
     </main>
     <section class="popup popup_type_edit">
-      <form class="popup__container" name="form">
+      <form class="popup__container popup__container_type_edit" name="profile-form">
         <button class="popup__close-form" type="button"></button>
         <h2 class="popup__edit-profile">Редактировать профиль</h2>
         <input type="text" class="popup__edit popup__edit_type_name" name="name" value=""/>
@@ -33,16 +33,16 @@
       </form>
     </section>
     <section class="place popup popup_type_place">
-      <form class="place__container" name="add-place">
+      <form class="place__container place__container_type_place" name="add-place">
         <button class="place__close-form" type="button"></button>
         <h2 class="place__new-place">Новое место</h2>
         <input type="text" class="place__edit place__edit_type_place" name="place" value="" placeholder="Название"/>
         <input type="text" class="place__edit place__edit_type_url" name="url" value="" placeholder="Ссылка на картинку"/>
-        <button type="button" class="place__submit">Создать</button>
+        <button type="submit" class="place__submit">Создать</button>
       </form>
     </section> 
     <section class="image popup popup_type_image">
-      <div class="image__container">
+      <div class="image__container image__container_type_image">
         <button type="button" class="image__close"></button>
         <img class="image__item" src="#" alt="Фото"/>
         <h3 class="image__title"></h3>
@@ -59,6 +59,7 @@
     <footer class="footer">
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>
+    <script src="./scripts/initialCards.js"></script>
     <script src="./scripts/main.js"></script>
   </body>
 </html>

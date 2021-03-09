@@ -22,150 +22,105 @@ const placeLink = placeContainer.querySelector(".place__edit_type_url")    /* с
 
 const template = document.querySelector("#template__card").content /* реднер шаблонов */
 
-const form = document.querySelector(".popup__container")  /* все формы */
+const profileForm = document.querySelector(".popup__container_type_edit")  /* форма профиля */
+const placeForm = document.querySelector(".place__container_type_place")  /* форма профиля */
+const imageForm = document.querySelector(".image__container_type_image")  /* форма профиля */
+  
 
+/* Каждый раз отправляя на проверку сомневаюсь в правильности решений. 
+    Надеюсь в этот раз ошибок будет меньше...
+*/
 
-const initialCards = [
-  {
-    name: "Река",
-    link:
-      "https://images.unsplash.com/photo-1611040549039-adc39e805408?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
-  },
-  {
-    name: "Заснеженный берег",
-    link:
-      "https://images.unsplash.com/photo-1610564823068-b7cb193950b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=966&q=80",
-  },
-  {
-    name: "Костер",
-    link:
-      "https://images.unsplash.com/photo-1612676756023-0219168b193f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=346&q=80Ln4RJaA",
-  },
-  {
-    name: "Водопад",
-    link:
-      "https://images.unsplash.com/photo-1508459855340-fb63ac591728?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80s://unsplash.com/photos/5-jtsfuaLBw",
-  },
-  {
-    name: "Млечный путь",
-    link:
-      "https://images.unsplash.com/photo-1596348158371-d3a25ec4dcf4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=337&q=80splash.com/photos/voQDMI8XIJI",
-  },
-  {
-    name: "Горный хребет вулкана",
-    link:
-      "https://images.unsplash.com/photo-1541845157-a6d2d100c931?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80Jo0Cl0",
-  },
-];
-
-function openEdit(){ /* это для профиля*/
-  editContainer.classList.add("popup_opened");
-  editName.value = profileName.textContent
-  editDescription.value = profileDescription.textContent
+function openPopup(container){ /* открыли */
+  container.classList.add("popup_opened");
 }
 
-function editInfo(evt){
+function closePopup(container){ /* закрыли */
+  container.classList.remove("popup_opened");
+}
+
+
+function editInfo(){
+  openPopup(editContainer);
+  editDescription.value = profileDescription.textContent
+  editName.value = profileName.textContent
+}
+
+function saveInformation(evt){
   evt.preventDefault();
   profileDescription.textContent = editDescription.value
   profileName.textContent = editName.value
   closePopup(editContainer);
 }
 
-
-function openCard(){ /* это для добавления карточки */
-  placeContainer.classList.add("popup_opened")
+function createCard(link, name){ /* создаем карточку */
+  const div = template.querySelector(".element").cloneNode(true)
+  const imageElem = div.querySelector(".element__image")
+  const textElem = div.querySelector(".element__title")
+  const like = div.querySelector(".element__like-button")
+  const deleteElem = div.querySelector(".element__delete")
   
-}
+  imageElem.src = link
+  imageElem.alt = name
+  textElem.textContent = name
+  
+  like.addEventListener("click", likeToggle)
+  deleteElem.addEventListener("click", removeElement)
+  imageElem.addEventListener("click", () => openImage(name, link))
 
-function closePopup(container){
-  container.classList.remove("popup_opened");
-  form.reset()
+  return div
 }
-
 
 function renderCards(){ /* это покажет карточки */
   initialCards.forEach(item => {
-    const div = template.querySelector(".element").cloneNode(true)
-    div.querySelector(".element__image").src = item.link
-    div.querySelector(".element__image").alt = item.name
-    div.querySelector(".element__title").textContent = item.name
-    elementsContainer.append(div)
+    elementsContainer.append(createCard(item.link, item.name))
   })
 }
 
-/* для удаления */
-function removeElement(ev){
+
+function removeElement(ev){ /* для удаления */
   const elem = ev.target
   if(elem){
-    const block = elem.parentNode
-    block.parentNode.removeChild(block)
+    const block = elem.closest(".element")
+    block.remove()
   }
 }
 
-function deleteCard(){
-  const deleteButtons = document.querySelectorAll(".element__delete")
-  deleteButtons.forEach((node) => {  
-    node.removeEventListener("click", removeElement) 
-    node.addEventListener("click", removeElement)
-}
-)}
 
-/* для лайка */
-function likeToggle(ev){
+function likeToggle(ev){ /* для лайка */
   const elem = ev.target
   if(elem){
     elem.classList.toggle("element__like-button_active")
   }
 }
-function like(){
-  const likeButtons = document.querySelectorAll(".element__like-button")
-  likeButtons.forEach((item) => {
-    item.removeEventListener("click", likeToggle)
-    item.addEventListener("click", likeToggle)
-    })
-}
 
-
-function openImage(){  /* откроет фотографию */
-  const images = document.querySelectorAll(".element__image")
+function openImage(name, link){  /* откроет фотографию */
   const image = imageContainer.querySelector(".image__item")
   const imageTitle = imageContainer.querySelector(".image__title")
-  //console.log(images)
-  images.forEach(item => {
-    item.addEventListener("click", () => {
-      imageContainer.classList.add("popup_opened")
-      image.src = item.currentSrc
-      image.alt = item.alt
-      imageTitle.textContent = item.alt
-    })
-  })
+
+  image.src = link
+  image.alt = name
+  imageTitle.textContent = name
+  
+  imageContainer.classList.add("popup_opened")
 }
 
-function addCard(){ /* добавит карточку */
-  const div = template.querySelector(".element").cloneNode(true)
-  div.querySelector(".element__image").src = placeLink.value
-  div.querySelector(".element__image").alt = placeName.value
-  div.querySelector(".element__title").textContent = placeName.value
-  elementsContainer.prepend(div);
+function addCard(evt){ /* добавит карточку */
+  evt.preventDefault();
+  elementsContainer.prepend(createCard(placeLink.value, placeName.value));
   closePopup(placeContainer)
-  openImage()
-  deleteCard()
-  like()
 }
 
 renderCards() 
-deleteCard()
-like()
-openImage()
+
 ////////////////////**** Работа с формой профиля ****/////////////////////////
-editButton.addEventListener("click", openEdit)
+editButton.addEventListener("click", editInfo)
 closeEditButton.addEventListener("click", () => closePopup(editContainer))
-editSubmit.addEventListener("click", editInfo)
+profileForm.addEventListener("submit", saveInformation)
 
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
-addCardButton.addEventListener("click", openCard)
+addCardButton.addEventListener("click", () =>  openPopup(placeContainer))
 closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
-placeSubmit.addEventListener("click", addCard)
-
+placeForm.addEventListener("submit", addCard)
 
 imageClose.addEventListener("click", () => closePopup(imageContainer))

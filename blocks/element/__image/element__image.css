@@ -9,3 +9,9 @@
   grid-row: 1;
   grid-column: 1;
 }
+
+.element__image:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}

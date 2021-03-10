@@ -102,13 +102,14 @@ function openImage(name, link){  /* откроет фотографию */
   image.alt = name
   imageTitle.textContent = name
   
-  imageContainer.classList.add("popup_opened")
+  openPopup(imageContainer);
 }
 
 function addCard(evt){ /* добавит карточку */
   evt.preventDefault();
   elementsContainer.prepend(createCard(placeLink.value, placeName.value));
   closePopup(placeContainer)
+  placeForm.reset()
 }
 
 renderCards() 

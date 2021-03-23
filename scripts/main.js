@@ -29,18 +29,14 @@ const imageForm = document.querySelector(".image__container_type_image")  /* п�
 
 function openPopup(container){ /* открыли */
   container.classList.add("popup_opened");
+  closeByEsc(container)
 }
 
-function closeEvent(form){
-  const elements = Array.from(form.elements)
-  elements.forEach(input => {
-    input.addEventListener("keydown", function(evt){
-      if(evt.key === "Escape"){
-        console.log("hhh")
-      }
-    })
-  })
-}
+const closeByEsc = (container) => document.addEventListener("keydown", function(evt){
+  if(evt.key === "Escape"){
+    closePopup(container)
+  }
+})
 
 function closePopup(container){ /* закрыли */
   container.classList.remove("popup_opened");
@@ -49,7 +45,6 @@ function closePopup(container){ /* закрыли */
 
 function editInfo(){
   openPopup(editContainer);
-  closeEvent(profileForm)
   editDescription.value = profileDescription.textContent
   editName.value = profileName.textContent
 }
@@ -75,7 +70,6 @@ function createCard(link, name){ /* создаем карточку */
   like.addEventListener("click", likeToggle)
   deleteElem.addEventListener("click", removeElement)
   imageElem.addEventListener("click", () => openImage(name, link))
-
   return div
 }
 
@@ -116,8 +110,7 @@ function openImage(name, link){  /* откроет фотографию */
 function addCard(evt){ /* добавит карточку */
   evt.preventDefault();
   elementsContainer.prepend(createCard(placeLink.value, placeName.value));
-  closePopup(placeContainer)
-  placeForm.reset()
+  placeForm.reset();
 }
 
 renderCards() 

@@ -20,19 +20,26 @@ const editDescription = editContainer.querySelector(".popup__edit_type_descripti
 const placeName = placeContainer.querySelector(".place__edit_type_place")  /* название новой карточки*/
 const placeLink = placeContainer.querySelector(".place__edit_type_url")    /* ссылка на картинку */
 
-const template = document.querySelector("#template__card").content /* реднер шаблонов */
+const template = document.querySelector("#template__card").content /* рендер шаблонов */
 
-const profileForm = document.querySelector(".popup__container_type_edit")  /* форма профиля */
-const placeForm = document.querySelector(".place__container_type_place")  /* форма профиля */
-const imageForm = document.querySelector(".image__container_type_image")  /* форма профиля */
+const profileForm = document.forms.profile  /* форма профиля */
+const placeForm = document.forms.add_place  /* форма добавления места */
+const imageForm = document.querySelector(".image__container_type_image")  /* попап с картинкой на весь экран */
   
-
-/* Каждый раз отправляя на проверку сомневаюсь в правильности решений. 
-    Надеюсь в этот раз ошибок будет меньше...
-*/
 
 function openPopup(container){ /* открыли */
   container.classList.add("popup_opened");
+}
+
+function closeEvent(form){
+  const elements = Array.from(form.elements)
+  elements.forEach(input => {
+    input.addEventListener("keydown", function(evt){
+      if(evt.key === "Escape"){
+        console.log("hhh")
+      }
+    })
+  })
 }
 
 function closePopup(container){ /* закрыли */
@@ -42,6 +49,7 @@ function closePopup(container){ /* закрыли */
 
 function editInfo(){
   openPopup(editContainer);
+  closeEvent(profileForm)
   editDescription.value = profileDescription.textContent
   editName.value = profileName.textContent
 }

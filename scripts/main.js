@@ -26,6 +26,7 @@ const profileForm = document.forms.profile  /* форма профиля */
 const placeForm = document.forms.add_place  /* форма добавления места */
 const imageForm = document.querySelector(".image__container_type_image")  /* попап с картинкой на весь экран */
   
+function closeByEsc()
 
 function openPopup(container){ /* открыли */
   container.classList.add("popup_opened");
@@ -37,6 +38,8 @@ const closeByEsc = (container) => document.addEventListener("keydown", function(
     closePopup(container)
   }
 })
+
+const removeByEsc = (container) => document.removeEventListener("keydown", )
 
 function closePopup(container){ /* закрыли */
   container.classList.remove("popup_opened");
@@ -115,6 +118,7 @@ function addCard(evt){ /* добавит карточку */
 
 renderCards() 
 
+
 ////////////////////**** Работа с формой профиля ****/////////////////////////
 editButton.addEventListener("click", editInfo)
 closeEditButton.addEventListener("click", () => closePopup(editContainer))
@@ -126,3 +130,64 @@ closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
 placeForm.addEventListener("submit", addCard)
 
 imageClose.addEventListener("click", () => closePopup(imageContainer))
+
+/* Валидация
+  Функции
+  1) проверка поля checkInput
+  2) подсветка поля showError, hideError
+  3) дисейбл/енейбл кнопки toggleButton
+  4) слушатели на форму setListeners
+  5) вызов всех функций enableValidation
+*/
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some(input => !input.validity.valid)
+}
+
+const toggleButton = (buttonElement, inputList) => {
+  if(hasInvalidInput(inputList))
+    buttonElement.removeAttribute("disabled", true)
+  else
+    buttonElement.setAttribute("disabled", true)
+}
+
+const showError = (form, input) => {
+  const errorElem = form.querySelector(".popup__error")
+  if
+}
+
+const hideError = () => {
+
+}
+
+const checkInput = (form, input) => {
+  if(input.validity.valid) {
+
+  }
+  else {
+
+  }
+}
+
+const setListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(".popup__input"))
+  const buttonElement = formElement.querySelector(".popup__submit")
+
+  inputList.forEach(element => {
+    element.addEventListener("input", function(){
+      checkInput(formElement, element)
+      toggleButton(inputList, buttonElement)
+    })
+  })
+}
+
+function enableValidation(obj) {
+  const formList = Array.from(document.querySelectorAll(obj.formSelector))
+
+  formList.forEach(element => {
+    element.addEventListener("submit", evt => evt.preventDefault())
+  })
+  setListeners(obj.inputSelector)
+}
+
+enableValidation()

@@ -26,23 +26,41 @@ const profileForm = document.forms.profile  /* форма профиля */
 const placeForm = document.forms.add_place  /* форма добавления места */
 const imageForm = document.querySelector(".image__container_type_image")  /* попап с картинкой на весь экран */
   
-function closeByEsc()
 
 function openPopup(container){ /* открыли */
   container.classList.add("popup_opened");
-  closeByEsc(container)
+  setEscListener(container)
+  closeByOverlay(container)
 }
 
-const closeByEsc = (container) => document.addEventListener("keydown", function(evt){
-  if(evt.key === "Escape"){
+
+/* закрытие по ESC */
+const setEscListener = (container) => {
+  document.addEventListener("keydown", function(evt){
+    if(evt.key === "Escape")
     closePopup(container)
-  }
-})
+  })
+}
 
-const removeByEsc = (container) => document.removeEventListener("keydown", )
+const removeEscListener = (container) => {
+  document.addEventListener("keydown", function(evt){
+    if(evt.key === "Escape")
+    closePopup(container)
+  })
+}
 
-function closePopup(container){ /* закрыли */
+   /* закрытие попап */
+function closePopup(container){
+  removeEscListener(container)
   container.classList.remove("popup_opened");
+}
+
+const closeByOverlay = (container) => {
+  container.addEventListener("click", function(evt){
+    if(evt.target === evt.currentTarget) {
+      closePopup(container)
+    }
+  })
 }
 
 
@@ -82,7 +100,6 @@ function renderCards(){ /* это покажет карточки */
   })
 }
 
-
 function removeElement(ev){ /* для удаления */
   const elem = ev.target
   if(elem){
@@ -90,7 +107,6 @@ function removeElement(ev){ /* для удаления */
     block.remove()
   }
 }
-
 
 function likeToggle(ev){ /* для лайка */
   const elem = ev.target
@@ -114,6 +130,7 @@ function addCard(evt){ /* добавит карточку */
   evt.preventDefault();
   elementsContainer.prepend(createCard(placeLink.value, placeName.value));
   placeForm.reset();
+  closePopup(placeContainer); 
 }
 
 renderCards() 
@@ -134,61 +151,69 @@ imageClose.addEventListener("click", () => closePopup(imageContainer))
 /* Валидация
   Главная функция принимает на себя объект
   Функции
-  1) проверка поля checkInput
+  1) проверка поля hasInvalidInput
   2) подсветка поля showError, hideError
   3) дисейбл/енейбл кнопки toggleButton
   4) слушатели на форму setListeners
   5) вызов всех функций enableValidation
 */
 
-const hasInvalidInput = (inputList) => {
-  return inputList.some(input => !input.validity.valid)
+const inputInvalid = (inputList) => {
+  return inputList.some(inputElement => !inputElement.validity.valid)
 }
 
-const toggleButton = (buttonElement, inputList) => {
-  if(hasInvalidInput(inputList))
-    buttonElement.removeAttribute("disabled", true)
-  else
+const toggleButton = (buttonElement, inputList, inactiveButtonClass) => {
+  if(inputInvalid(inputList)){
     buttonElement.setAttribute("disabled", true)
-}
-
-const showError = (form, input) => {
-  const errorElem = form.querySelector(".popup__error")
-  if
-}
-
-const hideError = () => {
-
-}
-
-const checkInput = (form, input) => {
-  if(input.validity.valid) {
-
+    buttonElement.classList.add(inactiveButtonClass)
   }
   else {
-
+    buttonElement.removeAttribute("disabled", true)
+    buttonElement.classList.remove(inactiveButtonClass)
   }
 }
 
-const setListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll(".popup__input"))
-  const buttonElement = formElement.querySelector(".popup__submit")
+const showError = (formElement, inputElement, inputErrorClass, errorClass) => {
+  const errorElement = formElement.querySelector(`#${inputElement.getAttribute("name")}__error`)
+  inputElement.classList.add(inputErrorClass)
+  errorElement.classList.add(errorClass)
+  errorElement.textContent = inputElement.validationMessage
+}
 
-  inputList.forEach(element => {
-    element.addEventListener("input", function(){
-      checkInput(formElement, element)
-      toggleButton(inputList, buttonElement)
+const hideError = (formElement, inputElement, inputErrorClass, errorClass) => {
+  const errorElement = formElement.querySelector(`#${inputElement.getAttribute("name")}__error`)
+  inputElement.classList.remove(inputErrorClass)
+  errorElement.classList.remove(errorClass)
+  errorElement.textContent = ""
+}
+
+const hasInvalidInput = (formElement, inputElement, inputErrorClass, errorClass) => {
+  if(inputElement.validity.valid){
+    hideError(formElement, inputElement, inputErrorClass, errorClass)
+  }
+  else {
+    showError(formElement, inputElement, inputErrorClass, errorClass)
+  }
+}
+
+const setEventListeners = (formElement, inputErrorClass, errorClass, inputSelector, submitButtonSelector, inactiveButtonClass) => {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector))
+  const buttonElement = formElement.querySelector(submitButtonSelector)
+
+  inputList.forEach(inputElement => {
+    inputElement.addEventListener("input", () => {
+      hasInvalidInput(formElement, inputElement, inputErrorClass, errorClass)
+      toggleButton(buttonElement, inputList, inactiveButtonClass)
     })
   })
 }
 
-function enableValidation(obj) {
-  const formList = Array.from(document.querySelectorAll(obj.formSelector))
-
-  formList.forEach(element => {
-    element.addEventListener("submit", evt => evt.preventDefault())
+const enableValidation = (object) => {
+  const formList = Array.from(document.querySelectorAll(object.formSelector))
+  formList.forEach(formElement => {
+    formElement.addEventListener("submit", evt => evt.preventDefault())
+    setEventListeners(formElement, object.inputErrorClass, object.errorClass, object.inputSelector, object.submitButtonSelector, object.inactiveButtonClass)
   })
-  setListeners(obj.inputSelector)
 }
 
-enableValidation()
+enableValidation(validationObject)

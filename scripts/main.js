@@ -132,6 +132,7 @@ placeForm.addEventListener("submit", addCard)
 imageClose.addEventListener("click", () => closePopup(imageContainer))
 
 /* Валидация
+  Главная функция принимает на себя объект
   Функции
   1) проверка поля checkInput
   2) подсветка поля showError, hideError

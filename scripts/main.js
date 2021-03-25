@@ -27,10 +27,22 @@ const placeForm = document.forms.add_place  /* форма добавления �
 const image = imageContainer.querySelector(".image__item")
 const imageTitle = imageContainer.querySelector(".image__title")
 
+/* Здравствуйте
+  очень попрошу Вас проверить код на наличие костылей и вернуть работу если такие найдутся.
+*/
+ 
 
+/* убираем старые ошибки валидации */
+const removeSpanError = () => {
+  const input = Array.from(document.querySelectorAll(".popup__input_type_error"))
+  const error = Array.from(document.querySelectorAll(".popup__error_type_active"))
 
-function openPopup(container){ /* открыли */
-  enableValidation(validationObject)
+  input.forEach(elem => elem.classList.remove("popup__input_type_error"))
+  error.forEach(elem => elem.classList.remove("popup__error_type_active"))
+}
+
+function openPopup(container){ /* открываем контейнер */
+  removeSpanError()
   container.classList.add("popup_opened");
 }
 
@@ -63,11 +75,12 @@ const closeByOverlay = (container) => {
 }
 
 function editInfo(){
-  openPopup(editContainer);
   setEscListener(editContainer);
   closeByOverlay(editContainer);
   editDescription.value = profileDescription.textContent
   editName.value = profileName.textContent
+  enableValidation(validationObject)
+  openPopup(editContainer);
 }
 
 function saveInformation(evt){
@@ -123,7 +136,6 @@ function openImage(name, link){  /* откроет фотографию */
 function addCard(evt){ /* добавит карточку */
   evt.preventDefault();
   elementsContainer.prepend(createCard(placeLink.value, placeName.value));
-  placeForm.reset();
   closePopup(placeContainer); 
 }
 
@@ -137,26 +149,13 @@ profileForm.addEventListener("submit", saveInformation)
 
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
 addCardButton.addEventListener("click", () =>  {
+  placeForm.reset();
+  enableValidation(validationObject)
   openPopup(placeContainer)
   setEscListener(placeContainer)
   closeByOverlay(placeContainer)
 })
 
-closePlaceButton.addEventListener("click", () => {
-  closePopup(placeContainer)
-})
-
+closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
 placeForm.addEventListener("submit", addCard)
-
 imageClose.addEventListener("click", () => closePopup(imageContainer))
-
-/* Валидация
-  Главная функция принимает на себя объект
-  Функции
-  1) проверка поля hasInvalidInput
-  2) подсветка поля showError, hideError
-  3) дисейбл/енейбл кнопки toggleButton
-  4) слушатели на форму setListeners
-  5) вызов всех функций enableValidation
-*/
-

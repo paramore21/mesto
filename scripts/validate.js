@@ -54,7 +54,7 @@ const hasInvalidInput = (formElement, inputElement, inputErrorClass, errorClass)
 const setEventListeners = (formElement, inputErrorClass, errorClass, inputSelector, submitButtonSelector, inactiveButtonClass) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector))
   const button = formElement.querySelector(submitButtonSelector)
-  
+
   inputList.forEach(inputElement => {
     inputElement.addEventListener("input", () => {
       hasInvalidInput(formElement, inputElement, inputErrorClass, errorClass)

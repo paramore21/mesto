@@ -12,24 +12,18 @@ const inputInvalid = (inputList) => {
   return inputList.some(inputElement => !inputElement.validity.valid)
 }
 
-const disableButton = (submitButtonSelector, inactiveButtonClass) => {
-  const buttonElement = document.querySelector(submitButtonSelector)
-  buttonElement.setAttribute("disabled", true)
-  buttonElement.classList.add(inactiveButtonClass)
+const findEmptyInputs = (inputList) => {
+  return !inputList.some(inputElement => inputElement.value.length > 0)
 }
 
-const enableButton = (submitButtonSelector, inactiveButtonClass) => {
-  const buttonElement = document.querySelector(submitButtonSelector)
-  buttonElement.removeAttribute("disabled")
-  buttonElement.classList.remove(inactiveButtonClass)
-}
-
-const toggleButton = (submitButtonSelector, inactiveButtonClass, inputList) => {
-  if(inputInvalid(inputList)){
-    disableButton(submitButtonSelector, inactiveButtonClass)
-  }
-  else {
-    enableButton(submitButtonSelector, inactiveButtonClass)
+const toggleButton = (buttonElement, inactiveButtonClass, inputList) => {
+  if(inputInvalid(inputList) || findEmptyInputs(inputList)){
+    buttonElement.classList.add(inactiveButtonClass)
+    buttonElement.setAttribute("disabled", true)
+  } 
+  else {  
+    buttonElement.classList.remove(inactiveButtonClass)
+    buttonElement.removeAttribute("disabled")
   }
 }
 
@@ -47,6 +41,7 @@ const hideError = (formElement, inputElement, inputErrorClass, errorClass) => {
   errorElement.textContent = ""
 }
 
+
 const hasInvalidInput = (formElement, inputElement, inputErrorClass, errorClass) => {
   if(inputElement.validity.valid){
     hideError(formElement, inputElement, inputErrorClass, errorClass)
@@ -58,12 +53,14 @@ const hasInvalidInput = (formElement, inputElement, inputErrorClass, errorClass)
 
 const setEventListeners = (formElement, inputErrorClass, errorClass, inputSelector, submitButtonSelector, inactiveButtonClass) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector))
-
+  const button = formElement.querySelector(submitButtonSelector)
+  
   inputList.forEach(inputElement => {
     inputElement.addEventListener("input", () => {
       hasInvalidInput(formElement, inputElement, inputErrorClass, errorClass)
-      toggleButton(submitButtonSelector, inactiveButtonClass, inputList)
+      toggleButton(button, inactiveButtonClass, inputList)
     })
+    toggleButton(button, inactiveButtonClass, inputList)
   })
 }
 

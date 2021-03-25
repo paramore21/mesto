@@ -27,9 +27,11 @@ const placeForm = document.forms.add_place  /* форма добавления �
 const image = imageContainer.querySelector(".image__item")
 const imageTitle = imageContainer.querySelector(".image__title")
 
+
+
 function openPopup(container){ /* открыли */
-  container.classList.add("popup_opened");
   enableValidation(validationObject)
+  container.classList.add("popup_opened");
 }
 
 const myEscape = (container, evt) => {
@@ -136,7 +138,6 @@ profileForm.addEventListener("submit", saveInformation)
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
 addCardButton.addEventListener("click", () =>  {
   openPopup(placeContainer)
-  disableButton(validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
   setEscListener(placeContainer)
   closeByOverlay(placeContainer)
 })

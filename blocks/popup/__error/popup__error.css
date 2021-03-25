@@ -9,6 +9,6 @@
   border: 0;
   outline: none;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: wrap;
   color: red;
 }

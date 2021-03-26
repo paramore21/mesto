@@ -10,7 +10,8 @@ const editButton = document.querySelector(".profile__edit-button")           /* 
 const addCardButton = document.querySelector(".profile__add-card")           /* кнопка добавить карту */
 const closeEditButton = editContainer.querySelector(".popup__close-form")    /* закрыть форму */
 const closePlaceButton = placeContainer.querySelector(".place__close-form")  /* закрыть добавление карточки*/
-const placeSubmit = placeContainer.querySelector(".place__submit")            /* сохранить новую карточку */
+const placeSubmit = placeContainer.querySelector(".place__submit")  
+const editSubmit = placeContainer.querySelector(".popup__submit")            /* сохранить новую карточку */
 const imageClose = document.querySelector(".image__close")
 
 const editName = editContainer.querySelector(".popup__edit_type_name")
@@ -27,10 +28,13 @@ const placeForm = document.forms.add_place  /* форма добавления �
 const image = imageContainer.querySelector(".image__item")
 const imageTitle = imageContainer.querySelector(".image__title")
 
+const inputList = Array.from(document.querySelectorAll(validationObject.inputSelector));
+
+
 /* Здравствуйте
   очень попрошу Вас проверить код на наличие костылей и вернуть работу если такие найдутся.
 */
- 
+
 
 /* убираем старые ошибки валидации */
 const removeSpanError = () => {
@@ -41,25 +45,27 @@ const removeSpanError = () => {
   error.forEach(elem => elem.classList.remove("popup__error_type_active"))
 }
 
-function openPopup(container){ /* открываем контейнер */
-  removeSpanError()
-  container.classList.add("popup_opened");
-}
 
-const myEscape = (container, evt) => {
-  if(evt.key === "Escape")
-    closePopup(container)
+function closeByEsc(evt){
+  if(evt.key === "Escape"){
+    const container = document.querySelector(".popup_opened").classList[0]
+    closePopup(document.querySelector(`.${container}`))
+  }
 }
 
 /* закрытие по ESC */
-const setEscListener = (container) => {
-  document.addEventListener("keydown", (evt) => myEscape(container, evt))
+const setEscListener = () => {
+  document.addEventListener("keydown", closeByEsc)
 }
 
-const removeEscListener = (container) => {
-  document.removeEventListener("keydown", (evt) => myEscape(container, evt))
+const removeEscListener = () => {
+  document.removeEventListener("keydown", closeByEsc)
 }
 
+function openPopup(container){ /* открываем контейнер */
+  container.classList.add("popup_opened");
+  setEscListener();
+}
    /* закрытие попап */
 function closePopup(container){
   removeEscListener(container)
@@ -75,11 +81,9 @@ const closeByOverlay = (container) => {
 }
 
 function editInfo(){
-  setEscListener(editContainer);
-  closeByOverlay(editContainer);
   editDescription.value = profileDescription.textContent
   editName.value = profileName.textContent
-  enableValidation(validationObject)
+  removeSpanError();
   openPopup(editContainer);
 }
 
@@ -128,8 +132,6 @@ function openImage(name, link){  /* откроет фотографию */
   image.src = link
   image.alt = name
   imageTitle.textContent = name
-  setEscListener(imageContainer)
-  closeByOverlay(imageContainer)
   openPopup(imageContainer);
 }
 
@@ -150,12 +152,15 @@ profileForm.addEventListener("submit", saveInformation)
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
 addCardButton.addEventListener("click", () =>  {
   placeForm.reset();
-  enableValidation(validationObject)
+  removeSpanError()
   openPopup(placeContainer)
-  setEscListener(placeContainer)
-  closeByOverlay(placeContainer)
 })
 
+closeByOverlay(editContainer);
+closeByOverlay(placeContainer);
+closeByOverlay(imageContainer);
 closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
 placeForm.addEventListener("submit", addCard)
 imageClose.addEventListener("click", () => closePopup(imageContainer))
+ 
+enableValidation(validationObject)

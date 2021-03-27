@@ -10,8 +10,7 @@ const editButton = document.querySelector(".profile__edit-button")           /* 
 const addCardButton = document.querySelector(".profile__add-card")           /* кнопка добавить карту */
 const closeEditButton = editContainer.querySelector(".popup__close-form")    /* закрыть форму */
 const closePlaceButton = placeContainer.querySelector(".place__close-form")  /* закрыть добавление карточки*/
-const placeSubmit = placeContainer.querySelector(".place__submit")  
-const editSubmit = placeContainer.querySelector(".popup__submit")            /* сохранить новую карточку */
+
 const imageClose = document.querySelector(".image__close")
 
 const editName = editContainer.querySelector(".popup__edit_type_name")
@@ -28,12 +27,8 @@ const placeForm = document.forms.add_place  /* форма добавления �
 const image = imageContainer.querySelector(".image__item")
 const imageTitle = imageContainer.querySelector(".image__title")
 
-const inputList = Array.from(document.querySelectorAll(validationObject.inputSelector));
 
 
-/* Здравствуйте
-  очень попрошу Вас проверить код на наличие костылей и вернуть работу если такие найдутся.
-*/
 
 
 /* убираем старые ошибки валидации */
@@ -149,16 +144,19 @@ editButton.addEventListener("click", editInfo)
 closeEditButton.addEventListener("click", () => closePopup(editContainer))
 profileForm.addEventListener("submit", saveInformation)
 
+const inputList = Array.from(placeContainer.querySelectorAll(validationObject.inputSelector));
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
 addCardButton.addEventListener("click", () =>  {
   placeForm.reset();
-  removeSpanError()
+  removeSpanError();
+  disableButton(placeContainer, inputList, validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
   openPopup(placeContainer)
 })
 
 closeByOverlay(editContainer);
 closeByOverlay(placeContainer);
 closeByOverlay(imageContainer);
+
 closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
 placeForm.addEventListener("submit", addCard)
 imageClose.addEventListener("click", () => closePopup(imageContainer))

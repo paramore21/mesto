@@ -7,6 +7,13 @@ const validationObject = {
   errorClass: 'popup__error_type_active'
 }
 
+const disableButton = (form, inputList, buttonClass, inactiveButtonClass) => {
+  if(findEmptyInputs(inputList)){
+    const button = form.querySelector(buttonClass)
+    button.classList.add(inactiveButtonClass)
+    button.setAttribute("disabled", true)
+  }
+}
 
 const inputInvalid = (inputList) => {
   return inputList.some(inputElement => !inputElement.validity.valid)

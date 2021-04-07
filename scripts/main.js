@@ -1,3 +1,6 @@
+import {Card} from "./Card.js"
+import {FormValidator, validationObject} from "./FormValidator.js"
+
 const editContainer = document.querySelector(".popup_type_edit")    /* контейнер формы*/ 
 const placeContainer = document.querySelector(".popup_type_place")  /* контейнер добавления карточки*/ 
 const imageContainer = document.querySelector(".popup_type_image")  /* контейнер карточки*/ 
@@ -22,7 +25,7 @@ const placeLink = placeContainer.querySelector(".place__edit_type_url")    /* с
 const profileForm = document.forms.profile  /* форма профиля */
 const placeForm = document.forms.add_place  /* форма добавления места */
 const className = "#template__card"
-  
+
 function openPopup(container){ /* открываем контейнер */
   container.classList.add("popup_opened");
   setEscListener();
@@ -31,15 +34,6 @@ function openPopup(container){ /* открываем контейнер */
 function closePopup(container){
   removeEscListener(container)
   container.classList.remove("popup_opened");
-}
-
-/* убираем старые ошибки валидации */
-const removeSpanError = () => {
-  const input = Array.from(document.querySelectorAll(".popup__input_type_error"))
-  const error = Array.from(document.querySelectorAll(".popup__error_type_active"))
-
-  input.forEach(elem => elem.classList.remove("popup__input_type_error"))
-  error.forEach(elem => elem.classList.remove("popup__error_type_active"))
 }
 
 /* закрытие по ESC */
@@ -56,6 +50,14 @@ const setEscListener = () => {
 
 const removeEscListener = () => {
   document.removeEventListener("keydown", closeByEsc)
+}
+
+/* убираем старые ошибки валидации */
+const removeSpanError = () => {
+  const input = Array.from(document.querySelectorAll(".popup__input_type_error"))
+  const error = Array.from(document.querySelectorAll(".popup__error_type_active"))
+  input.forEach(elem => elem.classList.remove("popup__input_type_error"))
+  error.forEach(elem => elem.classList.remove("popup__error_type_active"))
 }
 
 /* закрытие по оверлею */
@@ -81,14 +83,12 @@ function saveInformation(evt){
   closePopup(editContainer);
 }
 
-
 /* отрисовка */
 function renderCards(){ /* это покажет карточки */
   initialCards.forEach(item => {
     elementsContainer.append(new Card(item.link, item.name, className, openPopup, closePopup).createCard())
   })
 }
-
 
 function addCard(evt){ /* добавит карточку */
   evt.preventDefault();
@@ -109,7 +109,7 @@ const inputList = Array.from(placeContainer.querySelectorAll(validationObject.in
 addCardButton.addEventListener("click", () =>  {
   placeForm.reset();
   removeSpanError();
-  disableButton(placeContainer, inputList, validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
+  new FormValidator(validationObject)._disableButton(placeContainer, inputList, validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
   openPopup(placeContainer)
 })
 
@@ -121,4 +121,4 @@ closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
 placeForm.addEventListener("submit", addCard)
 imageClose.addEventListener("click", () => closePopup(imageContainer))
  
-enableValidation(validationObject)
+new FormValidator(validationObject).enableValidation(validationObject)

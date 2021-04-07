@@ -1,3 +1,4 @@
+export {Card}
 class Card {
   constructor(link, name, className, openPopup, closePopup){
     this._className = className

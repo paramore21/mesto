@@ -33,7 +33,7 @@ class Card {
     image.src = this._link
     image.alt = this._name
     imageTitle.textContent = this._name
-    openPopup(imageContainer);
+    this._openPopup(imageContainer);
   }
 
   createCard(){ /* создаем карточку */

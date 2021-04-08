@@ -1,5 +1,6 @@
 import {Card} from "./Card.js"
 import {FormValidator, validationObject} from "./FormValidator.js"
+import {initialCards} from "./initialCards.js"
 
 const editContainer = document.querySelector(".popup_type_edit")    /* контейнер формы*/ 
 const placeContainer = document.querySelector(".popup_type_place")  /* контейнер добавления карточки*/ 
@@ -25,6 +26,12 @@ const placeLink = placeContainer.querySelector(".place__edit_type_url")    /* с
 const profileForm = document.forms.profile  /* форма профиля */
 const placeForm = document.forms.add_place  /* форма добавления места */
 const className = "#template__card"
+const formEditClassName = ".popup_type_edit"
+const cardEditClassName = ".popup_type_place"
+
+
+const editFormValidation = new FormValidator(validationObject, formEditClassName)
+const cardFormValidation = new FormValidator(validationObject, cardEditClassName)
 
 function openPopup(container){ /* открываем контейнер */
   container.classList.add("popup_opened");
@@ -52,14 +59,6 @@ const removeEscListener = () => {
   document.removeEventListener("keydown", closeByEsc)
 }
 
-/* убираем старые ошибки валидации */
-const removeSpanError = () => {
-  const input = Array.from(document.querySelectorAll(".popup__input_type_error"))
-  const error = Array.from(document.querySelectorAll(".popup__error_type_active"))
-  input.forEach(elem => elem.classList.remove("popup__input_type_error"))
-  error.forEach(elem => elem.classList.remove("popup__error_type_active"))
-}
-
 /* закрытие по оверлею */
 const closeByOverlay = (container) => {
   container.addEventListener("click", function(evt){
@@ -72,7 +71,8 @@ const closeByOverlay = (container) => {
 function editInfo(){
   editDescription.value = profileDescription.textContent
   editName.value = profileName.textContent
-  removeSpanError();
+  editFormValidation.enableValidation
+  editFormValidation.removeSpanError(validationObject.inputErrorClass, validationObject.errorClass)
   openPopup(editContainer);
 }
 
@@ -108,8 +108,11 @@ const inputList = Array.from(placeContainer.querySelectorAll(validationObject.in
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
 addCardButton.addEventListener("click", () =>  {
   placeForm.reset();
-  removeSpanError();
-  new FormValidator(validationObject)._disableButton(placeContainer, inputList, validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
+  cardFormValidation.enableValidation
+  console.log(cardFormValidation.enableValidation)
+  console.log(cardFormValidation.removeSpanError)
+  cardFormValidation.removeSpanError;
+  cardFormValidation.disableButton(placeContainer, inputList, validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
   openPopup(placeContainer)
 })
 
@@ -121,4 +124,3 @@ closePlaceButton.addEventListener("click", () => closePopup(placeContainer))
 placeForm.addEventListener("submit", addCard)
 imageClose.addEventListener("click", () => closePopup(imageContainer))
  
-new FormValidator(validationObject).enableValidation(validationObject)

@@ -23,10 +23,7 @@ class FormValidator {
     const input = Array.from(document.querySelectorAll(`.${this._inputErrorClass}`))
     console.log(input)
     const error = Array.from(document.querySelectorAll(`.${this._errorClass}`))
-    input.forEach(elem => {
-      elem.classList.remove(this._inputErrorClass)
-      console.log(elem)
-    })
+    input.forEach(elem => elem.classList.remove(this._inputErrorClass))
     error.forEach(elem => elem.classList.remove(this._errorClass))
   }
 

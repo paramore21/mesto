@@ -18,10 +18,8 @@ class FormValidator {
   };
 
       /* убираем старые ошибки валидации */
-  removeSpanError(){
-    console.log(document.querySelectorAll(`.${this._inputErrorClass}`))
+  removeSpanError = () => {
     const input = Array.from(document.querySelectorAll(`.${this._inputErrorClass}`))
-    console.log(input)
     const error = Array.from(document.querySelectorAll(`.${this._errorClass}`))
     input.forEach(elem => elem.classList.remove(this._inputErrorClass))
     error.forEach(elem => elem.classList.remove(this._errorClass))

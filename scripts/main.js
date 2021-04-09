@@ -29,12 +29,11 @@ const className = "#template__card"
 const formEditClassName = ".popup_type_edit"
 const cardEditClassName = ".popup_type_place"
 
+const inputList = Array.from(placeContainer.querySelectorAll(validationObject.inputSelector));
 
 const editFormValidation = new FormValidator(validationObject, formEditClassName)
 const cardFormValidation = new FormValidator(validationObject, cardEditClassName)
 editFormValidation.enableValidation()
-editFormValidation.removeSpanError()
-
 cardFormValidation.enableValidation()
 
 function openPopup(container){ /* открываем контейнер */
@@ -73,6 +72,7 @@ const closeByOverlay = (container) => {
 }
 
 function editInfo(){
+  editFormValidation.removeSpanError()
   editDescription.value = profileDescription.textContent
   editName.value = profileName.textContent
   openPopup(editContainer);
@@ -104,8 +104,6 @@ renderCards()
 editButton.addEventListener("click", editInfo)
 closeEditButton.addEventListener("click", () => closePopup(editContainer))
 profileForm.addEventListener("submit", saveInformation)
-
-const inputList = Array.from(placeContainer.querySelectorAll(validationObject.inputSelector));
 
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
 addCardButton.addEventListener("click", () =>  {

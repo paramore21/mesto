@@ -18,10 +18,15 @@ class FormValidator {
   };
 
       /* убираем старые ошибки валидации */
-  removeSpanError = () => {
-    const input = Array.from(document.querySelectorAll(this._inputErrorClass))
-    const error = Array.from(document.querySelectorAll(this._errorClass))
-    input.forEach(elem => elem.classList.remove(this._inputErrorClass))
+  removeSpanError(){
+    console.log(document.querySelectorAll(`.${this._inputErrorClass}`))
+    const input = Array.from(document.querySelectorAll(`.${this._inputErrorClass}`))
+    console.log(input)
+    const error = Array.from(document.querySelectorAll(`.${this._errorClass}`))
+    input.forEach(elem => {
+      elem.classList.remove(this._inputErrorClass)
+      console.log(elem)
+    })
     error.forEach(elem => elem.classList.remove(this._errorClass))
   }
 
@@ -90,9 +95,7 @@ class FormValidator {
 
   enableValidation = () => {
     const formList = document.querySelector(this._formSelector)
-    formList.addEventListener("submit", evt => {
-      evt.preventDefault()
-      this._setEventListeners(formElement, this._inputErrorClass, this._errorClass, this._inputSelector, this._submitButtonSelector, this._inactiveButtonClass)
-    })
+    formList.addEventListener("submit", evt => evt.preventDefault())
+      this._setEventListeners(formList, this._inputErrorClass, this._errorClass, this._inputSelector, this._submitButtonSelector, this._inactiveButtonClass) 
   }
 }

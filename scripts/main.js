@@ -32,6 +32,10 @@ const cardEditClassName = ".popup_type_place"
 
 const editFormValidation = new FormValidator(validationObject, formEditClassName)
 const cardFormValidation = new FormValidator(validationObject, cardEditClassName)
+editFormValidation.enableValidation()
+editFormValidation.removeSpanError()
+
+cardFormValidation.enableValidation()
 
 function openPopup(container){ /* открываем контейнер */
   container.classList.add("popup_opened");
@@ -71,8 +75,6 @@ const closeByOverlay = (container) => {
 function editInfo(){
   editDescription.value = profileDescription.textContent
   editName.value = profileName.textContent
-  editFormValidation.enableValidation
-  editFormValidation.removeSpanError(validationObject.inputErrorClass, validationObject.errorClass)
   openPopup(editContainer);
 }
 
@@ -108,10 +110,7 @@ const inputList = Array.from(placeContainer.querySelectorAll(validationObject.in
 ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
 addCardButton.addEventListener("click", () =>  {
   placeForm.reset();
-  cardFormValidation.enableValidation
-  console.log(cardFormValidation.enableValidation)
-  console.log(cardFormValidation.removeSpanError)
-  cardFormValidation.removeSpanError;
+  cardFormValidation.removeSpanError();
   cardFormValidation.disableButton(placeContainer, inputList, validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
   openPopup(placeContainer)
 })

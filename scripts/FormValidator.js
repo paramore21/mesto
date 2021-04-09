@@ -1,6 +1,6 @@
 export {FormValidator, validationObject}
 const validationObject = {
-  formSelector: '.popup__form',
+  //formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_type_disabled',
@@ -8,16 +8,29 @@ const validationObject = {
   errorClass: 'popup__error_type_active'
 }
 class FormValidator {
-    constructor(validationObject){
-      this._formSelector = validationObject.formSelector;
-      this._inputSelector = validationObject.inputSelector;
-      this._submitButtonSelector = validationObject.submitButtonSelector;
-      this._inactiveButtonClass = validationObject.inactiveButtonClass;
-      this._inputErrorClass = validationObject.inputErrorClass;
-      this._errorClass = validationObject.errorClass
-    };
+  constructor(validationObject, formSelector){
+    this._formSelector = formSelector;
+    this._inputSelector = validationObject.inputSelector;
+    this._submitButtonSelector = validationObject.submitButtonSelector;
+    this._inactiveButtonClass = validationObject.inactiveButtonClass;
+    this._inputErrorClass = validationObject.inputErrorClass;
+    this._errorClass = validationObject.errorClass
+  };
 
-  _disableButton = (form, inputList, buttonClass, inactiveButtonClass) => {
+      /* убираем старые ошибки валидации */
+  removeSpanError(){
+    console.log(document.querySelectorAll(`.${this._inputErrorClass}`))
+    const input = Array.from(document.querySelectorAll(`.${this._inputErrorClass}`))
+    console.log(input)
+    const error = Array.from(document.querySelectorAll(`.${this._errorClass}`))
+    input.forEach(elem => {
+      elem.classList.remove(this._inputErrorClass)
+      console.log(elem)
+    })
+    error.forEach(elem => elem.classList.remove(this._errorClass))
+  }
+
+  disableButton = (form, inputList, buttonClass, inactiveButtonClass) => {
     if(this._findEmptyInputs(inputList)){
       const button = form.querySelector(buttonClass)
       button.classList.add(inactiveButtonClass)
@@ -81,10 +94,8 @@ class FormValidator {
   }
 
   enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll(this._formSelector))
-    formList.forEach(formElement => {
-      formElement.addEventListener("submit", evt => evt.preventDefault())
-      this._setEventListeners(formElement, this._inputErrorClass, this._errorClass, this._inputSelector, this._submitButtonSelector, this._inactiveButtonClass)
-    })
+    const formList = document.querySelector(this._formSelector)
+    formList.addEventListener("submit", evt => evt.preventDefault())
+      this._setEventListeners(formList, this._inputErrorClass, this._errorClass, this._inputSelector, this._submitButtonSelector, this._inactiveButtonClass) 
   }
 }

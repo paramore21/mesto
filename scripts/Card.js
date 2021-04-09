@@ -1,11 +1,13 @@
 export {Card}
 class Card {
-  constructor(link, name, className, openPopup, closePopup){
+  constructor(link, name, className, openPopup){
     this._className = className
     this._link = link
     this._name = name
     this._openPopup = openPopup
-    this._closePopup = closePopup 
+    this._imageClass = ".popup_type_image"
+    this._imageItem = ".image__item"
+    this._imageTitle = ".image__title"
   }
 
   _generateTemplate(){
@@ -27,13 +29,13 @@ class Card {
   _openImage(link, name){  /* откроет фотографию */
     this._link = link
     this._name = name
-    const imageContainer = document.querySelector(".popup_type_image")
-    const image = imageContainer.querySelector(".image__item")
-    const imageTitle = imageContainer.querySelector(".image__title")
+    const imageContainer = document.querySelector(this._imageClass)
+    const image = imageContainer.querySelector(this._imageItem)
+    const imageTitle = imageContainer.querySelector(this._imageTitle)
     image.src = this._link
     image.alt = this._name
     imageTitle.textContent = this._name
-    this._openPopup(imageContainer);
+    this._openPopup(imageContainer)
   }
 
   createCard(){ /* создаем карточку */

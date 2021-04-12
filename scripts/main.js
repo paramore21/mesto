@@ -23,6 +23,7 @@ const editDescription = editContainer.querySelector(".popup__edit_type_descripti
 const placeName = placeContainer.querySelector(".place__edit_type_place")  /* название новой карточки*/
 const placeLink = placeContainer.querySelector(".place__edit_type_url")    /* ссылка на картинку */
 
+const cardSubmitButton = placeContainer.querySelector(".place__submit")
 const profileForm = document.forms.profile  /* форма профиля */
 const placeForm = document.forms.add_place  /* форма добавления места */
 const className = "#template__card"
@@ -109,7 +110,7 @@ profileForm.addEventListener("submit", saveInformation)
 addCardButton.addEventListener("click", () =>  {
   placeForm.reset();
   cardFormValidation.removeSpanError();
-  cardFormValidation.disableButton(placeContainer, inputList, validationObject.submitButtonSelector, validationObject.inactiveButtonClass)
+  cardFormValidation.toggleButton(cardSubmitButton, validationObject.inactiveButtonClass, inputList)
   openPopup(placeContainer)
 })
 

@@ -25,14 +25,6 @@ class FormValidator {
     error.forEach(elem => elem.classList.remove(this._errorClass))
   }
 
-  disableButton = (form, inputList, buttonClass, inactiveButtonClass) => {
-    if(this._findEmptyInputs(inputList)){
-      const button = form.querySelector(buttonClass)
-      button.classList.add(inactiveButtonClass)
-      button.setAttribute("disabled", true)
-    }
-  }
-
   _inputInvalid = (inputList) => {
     return inputList.some(inputElement => !inputElement.validity.valid)
   }
@@ -41,14 +33,22 @@ class FormValidator {
     return !inputList.some(inputElement => inputElement.value.length > 0)
   }
 
-  _toggleButton = (buttonElement, inactiveButtonClass, inputList) => {
+  _enableButton = (button, inactiveButtonClass) => {
+    button.classList.remove(inactiveButtonClass)
+    button.removeAttribute("disabled")
+  }
+
+  _disableButton = (button, inactiveButtonClass) => {
+    button.classList.add(inactiveButtonClass)
+    button.setAttribute("disabled", true)
+  }
+
+  toggleButton = (buttonElement, inactiveButtonClass, inputList) => {
     if(this._inputInvalid(inputList) || this._findEmptyInputs(inputList)){
-      buttonElement.classList.add(inactiveButtonClass)
-      buttonElement.setAttribute("disabled", true)
+      this._disableButton(buttonElement, inactiveButtonClass)
     } 
     else {  
-      buttonElement.classList.remove(inactiveButtonClass)
-      buttonElement.removeAttribute("disabled")
+      this._enableButton(buttonElement, inactiveButtonClass)
     }
   }
 
@@ -82,9 +82,9 @@ class FormValidator {
     inputList.forEach(inputElement => {
       inputElement.addEventListener("input", () => {
         this._hasInvalidInput(formElement, inputElement, inputErrorClass, errorClass)
-        this._toggleButton(button, inactiveButtonClass, inputList)
+        this.toggleButton(button, inactiveButtonClass, inputList)
       })
-      this._toggleButton(button, inactiveButtonClass, inputList)
+      this.toggleButton(button, inactiveButtonClass, inputList)
     })
   }
 

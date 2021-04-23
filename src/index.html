@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Логотип страницы"/>
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип страницы"/>
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src="./images/avatar.png" alt="Жак-Ив Кусто"/>
+        <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Жак-Ив Кусто"/>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <h2 class="profile__description">Исследователь океана</h2>
@@ -36,7 +35,7 @@
     </section>
     <section class="place popup popup_type_place">
       <form class="place__container place__container_type_place popup__form" name="add_place" novalidate>
-        <button class="place__close-form" type="button"></button>
+        <button class="popup__close-form" type="button"></button>
         <h2 class="place__new-place">Новое место</h2>
         <input type="text" class="place__edit place__edit_type_place popup__input" name="place" value="" placeholder="Название" required minlength="2" maxlength="30"/>
         <span class="popup__error" id="place__error"></span>
@@ -47,7 +46,7 @@
     </section> 
     <section class="image popup popup_type_image">
       <div class="image__container image__container_type_image">
-        <button type="button" class="image__close"></button>
+        <button type="button" class="popup__close-form"></button>
         <img class="image__item" src="#" alt="Фото"/>
         <h3 class="image__title"></h3>
       </div>
@@ -63,6 +62,5 @@
     <footer class="footer">
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>
-    <script type="module" src="./scripts/main.js"></script>
   </body>
 </html>

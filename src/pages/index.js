@@ -1,11 +1,11 @@
-import '../pages/index.css';
-import PopupWithForm from "./PopupWithForm.js"
-import Popup from "./Popup.js"
-import Card from "./Card.js"
-import Section from "./Section.js"
-import {FormValidator, validationObject} from "./FormValidator.js"
-import {initialCards} from "./initialCards.js"
-import UserInfo from "./UserInfo.js"
+import './index.css';
+import PopupWithForm from "../components/PopupWithForm.js"
+import Card from "../components/Card.js"
+import Section from "../components/Section.js"
+import {FormValidator, validationObject} from "../components/FormValidator.js"
+import {initialCards} from "../utils/initialCards.js"
+import UserInfo from "../components/UserInfo.js"
+import PopupWithImage from '../components/PopupWithImage';
 
 const editContainer = document.querySelector(".popup_type_edit")    /* контейнер формы*/ 
 const placeContainer = document.querySelector(".popup_type_place")  /* контейнер добавления карточки*/ 
@@ -31,29 +31,37 @@ const imageContainer = ".popup_type_image"  /* селектор попапа к�
 const editFormValidation = new FormValidator(validationObject, formEditClassName)
 const cardFormValidation = new FormValidator(validationObject, cardEditClassName)
 
-const imagePopup = new Popup(imageContainer)
+
+const createCard = (item) => { 
+  const card = new Card(item.link, item.name, className).createCard()
+  return card
+}
+const imagePopup = new PopupWithImage(imageContainer)
 imagePopup.setEventListeners()
+
 const inputList = Array.from(placeContainer.querySelectorAll(validationObject.inputSelector));
 
 const userInfo = new UserInfo(profileName, profileDescription)
 
 const editPopup = new PopupWithForm(formEditClassName, 
-  () => {
-    userInfo.setUserInfo(editPopup._getInputValues())
-  })
+  (inputValues) => {
+    userInfo.setUserInfo(inputValues)
+  }
+)
 
-const placePopup = new PopupWithForm(cardEditClassName, () => {
-  const card = new Card(placePopup._getInputValues().url, placePopup._getInputValues().place, className).createCard()
+editPopup.setEventListeners()
+
+const placePopup = new PopupWithForm(cardEditClassName, (inputValues) => {
+  const card = createCard(inputValues)
   sectionClass.addItem(card)
 })
 
-editPopup.setEventListeners()
 placePopup.setEventListeners()
-
+  
 const sectionClass = new Section({
   items: initialCards, 
   renderer: (item) => {
-    const card = new Card(item.link, item.name, className).createCard()
+    const card = createCard(item)
     sectionClass.addItem(card)
   } 
 }, elementsSelector)
@@ -81,50 +89,3 @@ editButton.addEventListener("click", () => {
   editName.value = data.name
   editPopup.open()
 })
-
-// function editInfo(){
-//   editFormValidation.removeSpanError()
-//   editDescription.value = profileDescription.textContent
-//   editName.value = profileName.textContent
-//   openPopup(editContainer);
-// }
-
-// function saveInformation(evt){
-//   evt.preventDefault();
-//   profileDescription.textContent = editDescription.value
-//   profileName.textContent = editName.value
-// }
-
-// // /* отрисовка */
-// // function renderCards(){ /* это покажет карточки */
-// //   initialCards.forEach(item => {
-// //     elementsContainer.append(new Card(item.link, item.name, className, openPopup).createCard())
-// //   })
-// // }
-
-// function addCard(evt){ /* добавит карточку */
-//   evt.preventDefault();
-//   elementsContainer.prepend(new Card(placeLink.value, placeName.value, className, openPopup).createCard());
-//   closePopup(placeContainer); 
-// }
-
-// // renderCards() 
-
-
-// profileForm.addEventListener("submit", saveInformation)
-
-// ////////////////////**** Работа с формой добавления карточки ****/////////////////////////
-// addCardButton.addEventListener("click", () =>  {
-//   placeForm.reset();
-//   cardFormValidation.removeSpanError();
-//   cardFormValidation.toggleButton(cardSubmitButton, validationObject.inactiveButtonClass, inputList)
-//   openPopup(placeContainer)
-// })
-
-// // closeByOverlay(editContainer);
-// // closeByOverlay(placeContainer);
-// // closeByOverlay(imageContainer);
-
-// placeForm.addEventListener("submit", addCard)
-// //imageClose.addEventListener("click", () => closePopup(imageContainer))
- 

@@ -3,11 +3,11 @@ export default class PopupWithImage extends Popup {
   constructor(popupSelector){
     super(popupSelector)
     this._container = document.querySelector(popupSelector)
+    this._image = this._container.querySelector(".image__item")
+    this._imageTitle = this._container.querySelector(".image__title")
   }
 
-  handleCardClick(link, name){
-    this._image = this._container.querySelector(".image__item")
-    this._imageTitle = this._container.querySelector(".image__title") 
+  handleCardClick(link, name){ 
     this._image.src = link
     this._image.alt = name
     this._imageTitle.textContent = name

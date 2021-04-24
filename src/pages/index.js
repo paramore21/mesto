@@ -31,13 +31,15 @@ const imageContainer = ".popup_type_image"  /* селектор попапа к�
 const editFormValidation = new FormValidator(validationObject, formEditClassName)
 const cardFormValidation = new FormValidator(validationObject, cardEditClassName)
 
-
-const createCard = (item) => { 
-  const card = new Card(item.link, item.name, className).createCard()
-  return card
-}
 const imagePopup = new PopupWithImage(imageContainer)
 imagePopup.setEventListeners()
+
+const createCard = (item) => { 
+  const card = new Card(item.link, item.name, className, () => {
+    imagePopup.open(item.link, item.name)}
+    ).createCard()
+  return card
+}
 
 const inputList = Array.from(placeContainer.querySelectorAll(validationObject.inputSelector));
 

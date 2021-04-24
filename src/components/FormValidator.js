@@ -53,14 +53,14 @@ class FormValidator {
   }
 
   _showError = (formElement, inputElement, inputErrorClass, errorClass) => {
-    const errorElement = formElement.querySelector(`#${inputElement.getAttribute("name")}__error`)
+    const errorElement = formElement.querySelector(".popup__error")
     inputElement.classList.add(inputErrorClass)
     errorElement.classList.add(errorClass)
     errorElement.textContent = inputElement.validationMessage
   }
 
   _hideError = (formElement, inputElement, inputErrorClass, errorClass) => {
-    const errorElement = formElement.querySelector(`#${inputElement.getAttribute("name")}__error`)
+    const errorElement = formElement.querySelector(".popup__error")
     inputElement.classList.remove(inputErrorClass)
     errorElement.classList.remove(errorClass)
     errorElement.textContent = ""

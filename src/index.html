@@ -11,10 +11,10 @@
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Жак-Ив Кусто"/>
+        <p class="profile__avatar" href="#" target="_blank"></p>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <h2 class="profile__description">Исследователь океана</h2>
+          <h1 class="profile__name">Яяя</h1>
+          <h2 class="profile__description">Маша</h2>
         </div>
         <button type="button" class="profile__edit-button"></button>
         <button type="button" class="profile__add-card"></button>
@@ -28,7 +28,7 @@
         <h2 class="popup__edit-profile">Редактировать профиль</h2>
         <input type="text" class="popup__edit popup__edit_type_name popup__input" name="name" value="" placeholder="Имя" required minlength="2" maxlength="40"/>
         <span class="popup__error" id="name__error"></span>
-        <input type="text" class="popup__edit popup__edit_type_description popup__input" name="description" value="" placeholder="О себе" required minlength="2" maxlength="200"/>
+        <input type="text" class="popup__edit popup__edit_type_description popup__input" name="about" value="" placeholder="О себе" required minlength="2" maxlength="200"/>
         <span class="popup__error" id="description__error"></span>
         <button type="submit" class="popup__submit">Сохранить</button>
       </form>
@@ -51,12 +51,33 @@
         <h3 class="image__title"></h3>
       </div>
     </section> 
+    <section class="delete popup popup_type_delete">
+      <div class="delete__container">
+        <h3 class="delete__title">Вы уверены?</h3>
+        <button type="button" class="popup__close-form"></button>
+        <button type="button" class="delete__submit popup__submit">Да</button>
+      </div>
+    </section>
+    <section class="avatar popup popup_type_avatar">
+      <div class="avatar__container">
+        <h3 class="avatar__title">Обновить аватар</h3>
+        <form class="avatar__form avatar__container_type_avatar popup__form" name="update_avatar" novalidate>
+          <button type="button" class="popup__close-form"></button>
+        <input type="url" class="avatar__edit avatar__edit_type_url popup__input" name="avatar" value="" placeholder="Ссылка на картинку" required/>
+        <span class="popup__error" id="avatar__link__error"></span>
+        <button type="submit" class="avatar__submit popup__submit">Сохранить</button>
+        </form>
+      </div>
+    </section>
     <template id="template__card">
       <div class="element">
         <img class="element__image" src="#" alt="Фото"/>
         <button type="button" class="element__delete"></button>
         <h2 class="element__title"></h2>
-        <button type="button" class="element__like-button"></button>
+        <div class="element__likes">
+          <button type="button" class="element__like-button"></button>
+          <p class="element__like-count"></p>
+        </div>  
       </div>
     </template>
     <footer class="footer">

@@ -26,7 +26,7 @@ export default class Card{
     this._like.classList.toggle("element__like-button_active")
   }
 
-  _checkId(deleteElem, userId, userMe){ // если айди карточки совпадает с моим - отрисовать корзину
+  _handleDeleteButton(deleteElem, userId, userMe){ // если айди карточки совпадает с моим - отрисовать корзину
     if(userId === userMe){
       this._setDeleteEventListener(deleteElem)
       return deleteElem
@@ -57,7 +57,8 @@ export default class Card{
     this._element.remove();
   }
   
-  checkLikeCount(likeCount){
+  updateLikes(likeCount, ev){
+    this._likeToggle(ev)
     this._likeCounts.textContent = likeCount
   }
 
@@ -72,12 +73,13 @@ export default class Card{
     this._likeCounts.textContent = this._data.likes.length
     imageElem.src = this._link
     imageElem.alt = this._name
-    imageElem.textContent = this._name
     title.textContent = this._name
 
-    this._like.addEventListener("click", (ev) => {
+    this._like.addEventListener("click", () => {
+      /* если выносить строчку ниже в функцию UpdateLikes то в апи запрос приходит
+        не корректный флаг, поэтому toggle я перенесла, с этим я согласна, а вот с флагом так не получится
+      */
       this._liked = !this._liked
-      this._likeToggle(ev)
       this._likeCountHandler(this._liked, this._data, this)
     })
 
@@ -86,7 +88,7 @@ export default class Card{
     imageElem.addEventListener("click", () => {
       this._handleCardClick()
     })
-    this._checkId(deleteElem, this._userId, this._userMe);
+    this._handleDeleteButton(deleteElem, this._userId, this._userMe);
     
     return this._element
   }

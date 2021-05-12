@@ -27,9 +27,9 @@
         <button class="popup__close-form" type="button"></button>
         <h2 class="popup__edit-profile">Редактировать профиль</h2>
         <input type="text" class="popup__edit popup__edit_type_name popup__input" name="name" value="" placeholder="Имя" required minlength="2" maxlength="40"/>
-        <span class="popup__error" id="name__error"></span>
+        <span class="popup__error" id="popup__name__error"></span>
         <input type="text" class="popup__edit popup__edit_type_description popup__input" name="about" value="" placeholder="О себе" required minlength="2" maxlength="200"/>
-        <span class="popup__error" id="description__error"></span>
+        <span class="popup__error" id="popup__about__error"></span>
         <button type="submit" class="popup__submit">Сохранить</button>
       </form>
     </section>
@@ -64,7 +64,7 @@
         <form class="avatar__form avatar__form_type_avatar popup__form" name="update_avatar" novalidate>
           <button type="button" class="popup__close-form"></button>
         <input type="url" class="avatar__edit avatar__edit_type_url popup__input" name="avatar" value="" placeholder="Ссылка на картинку" required/>
-        <span class="popup__error" id="avatar__link__error"></span>
+        <span class="popup__error" id="avatar__avatar__error"></span>
         <button type="submit" class="avatar__submit popup__submit">Сохранить</button>
         </form>
       </div>

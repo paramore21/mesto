@@ -8,35 +8,11 @@ import UserInfo from "../components/UserInfo.js"
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithSubmit from "../components/PopupWithSubmit.js";
 
-const editContainer = document.querySelector(".popup_type_edit")    /* контейнер формы*/ 
-const placeContainer = document.querySelector(".popup_type_place")  /* контейнер добавления карточки*/ 
-const userAvatarContainer = document.querySelector(".popup_type_avatar")
-
-const elementsSelector = ".elements"       /* тут карточки */
-
-const profileName = ".profile__name"       /* селектор -- имя на странице */
-const profileDescription = ".profile__description"     /* селектор -- описание на странице */
-const userAvatar = ".profile__avatar" /* селектор аватара */
-
-const editButton = document.querySelector(".profile__edit-button")           /* кнопка изменить, открытие формы */
-const addCardButton = document.querySelector(".profile__add-card")           /* кнопка добавить карту */
-const closePlaceButton = placeContainer.querySelector(".popup__close-form")  /* закрыть добавление карточки*/
-
-const editName = editContainer.querySelector(".popup__edit_type_name")
-const editDescription = editContainer.querySelector(".popup__edit_type_description")
-const editSubmit = editContainer.querySelector(".popup__submit")
-const cardSubmitButton = placeContainer.querySelector(".place__submit")
-const editAvatarSubmitButton = userAvatarContainer.querySelector(".avatar__submit")
-const className = "#template__card"
-
-const formEditClassName = ".popup_type_edit" /* селектор попапа изменения информации*/ 
-const cardEditClassName = ".popup_type_place" /* селектор попапа карточки*/ 
-const imageContainer = ".popup_type_image"  /* селектор попапа картинки*/ 
-const deleteContainer = ".popup_type_delete"
-const avatarContainer = ".popup_type_avatar"
-const avatarButton = document.querySelector(userAvatar)
-
-const inputList = Array.from(placeContainer.querySelectorAll(validationObject.inputSelector));
+import {
+  elementsSelector, profileName, profileDescription, userAvatar, editButton,
+  addCardButton, editName, editDescription, editSubmit, cardSubmitButton, editAvatarSubmitButton, deleteSubmitButton, 
+  cardSelector, formEditClassName, cardEditClassName, imageContainer, deleteContainer, avatarContainer, avatarButton
+} from "../utils/constants.js";
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-23',
@@ -62,6 +38,7 @@ const editPopup = new PopupWithForm(formEditClassName,
       editSubmit.textContent = "Сохранить"
       userInfo.setUserInfo(res)
     })
+    .catch(err => console.log(err))
   }
 )
 
@@ -73,6 +50,8 @@ const editAvatar = new PopupWithForm(avatarContainer, (inputValue) => {
     editAvatarSubmitButton.textContent = "Сохранить"
     userInfo.setUserAvatar(res.avatar)
   })
+  .then(editAvatar.close())
+  .catch(err => console.log(err))
 });
 
 const imagePopup = new PopupWithImage(imageContainer);
@@ -83,8 +62,13 @@ const placePopup = new PopupWithForm(cardEditClassName, (inputValues) => {
   api.addNewCardToServer(inputValues.name, inputValues.link)
   .then(res => {
     cardSubmitButton.textContent = "Создать"
-    createCard(res, res.owner._id)
+    const newCard = createCard(res, res.owner._id)
+    section.addItem(newCard.createCard())
   })
+  .then(() => {
+    placePopup.close()
+  })
+  .catch(err => console.log(err))
 })
 
 /* запрос на удаление публикации */
@@ -97,37 +81,51 @@ const likeCount = (liked, data, card) =>{
   if(liked){
     api.setLike(data._id)
     .then(res => {
-      card.checkLikeCount(res.likes.length)
+      card.updateLikes(res.likes.length)
     })
+    .catch(err => console.log(err))
   }
   else {
     api.removeLike(data._id)
     .then(res => {
-      card.checkLikeCount(res.likes.length)
+      card.updateLikes(res.likes.length)
     })
+    .catch(err => console.log(err))
   }
 }
 
 /* создание карточки */
 const createCard = (item, userMe) => {
-  const card = new Card(item, userMe, className, 
+  const card = new Card(item, userMe, cardSelector, 
     () => {imagePopup.open(item.link, item.name)},  /* открытие публикации по клику */
     () => {submitDelete.open(deleteContainer)},     /* подтверждение удаления публикации */
+    /* "При открытии попапа подтверждения нужно сразу же обновлять функцию удаления. 
+    Все в одном обработчике, а не в 2х разных, которые сейчас передаете на 115 и 116й строчках. Их не нужно разделять."
+     -- я не совсем поняла как это реализовать в классе Card, поэтому пока оставила так
+    вернусь к этому позже  */
+
     () => {                                         /* работа с сервером и DOM - удаление публикации */
-      submitDelete.deleteHandler(
+      submitDelete.setDeleteHandler(
         () => {
+
+          /* на самом деле этого пункта не было в ТЗ :)
+            но так даже лучше, поэтому я сделала
+          */
+
+          deleteSubmitButton.textContent = "Удаление..."
           deleteCardFromServer(item._id)
+          .then(() => {
+            deleteSubmitButton.textContent = "Да"
+            card.removeCard()
+          })
           .then(() => {submitDelete.close()})
-          .then(() => {card.removeCard()})
+          .catch(err => console.log(err))
         })
     },
     likeCount                                       /* проверка количества лайков у публикации */
   )
-  const newCard = card.createCard()
-  sectionClass.addItem(newCard)
+  return card
 }
-    
-
 
 /* навесили всех слушаетелей */
 
@@ -146,17 +144,15 @@ validateAvatar.enableValidation();
 
 addCardButton.addEventListener("click", () => {
   cardFormValidation.removeSpanError();
-  cardFormValidation.toggleButton(cardSubmitButton, validationObject.inactiveButtonClass, inputList)
+  cardFormValidation.toggleButton(cardSubmitButton)
   placePopup.open()
 });
 
 avatarButton.addEventListener("click", () => {
   validateAvatar.removeSpanError()
-  validateAvatar.toggleButton(editAvatarSubmitButton, validationObject.inactiveButtonClass, inputList)
+  validateAvatar.toggleButton(editAvatarSubmitButton)
   editAvatar.open()
 })
-
-closePlaceButton.addEventListener("click", () => placePopup.close());
 
 ///////////////////////**** Работа с формой профиля ****/////////////////////////
 
@@ -170,7 +166,11 @@ editButton.addEventListener("click", () => {
 
 const userInfo = new UserInfo(profileName, profileDescription, userAvatar); /* изменение информации о пользователе */
 
-const sectionClass = new Section(createCard, elementsSelector); /* рендеринг изображений */
+const section = new Section((items, userMe) => {
+  const newCard = createCard(items, userMe)
+  const card = newCard.createCard()
+  section.addItem(card)
+}, elementsSelector); /* рендеринг изображений */
 
 
 /* включаем работу сервера */
@@ -178,6 +178,7 @@ Promise.all([
   api.getInitialCards(),
   api.getUserInformation(),
 ]).then(res => {
-  sectionClass.renderItems(res[0], res[1]._id);
+  section.renderItems(res[0], res[1]._id);
   userInfo.setUserInfo(res[1])
 })
+.catch(err => console.log(err))

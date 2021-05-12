@@ -2,12 +2,11 @@ import Popup from "./Popup.js"
 export default class PopupWithSubmit extends Popup {
   constructor(popupSelector){
     super(popupSelector)
-    this._container = document.querySelector(popupSelector)
     this._button = this._container.querySelector(".delete__submit")
     
   }
 
-  deleteHandler(action){
+  setDeleteHandler(action){
     this._deleteHandler = action
   }
   
@@ -17,10 +16,9 @@ export default class PopupWithSubmit extends Popup {
       this._deleteHandler()
     })
   }
-  
-  open(){
-    this._container.classList.add("popup_opened");
+
+  setEventListeners(){
     this._submitDelete()
-    super.open() 
+    super.setEventListeners()
   }
 }

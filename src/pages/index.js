@@ -37,6 +37,7 @@ const editPopup = new PopupWithForm(formEditClassName,
     .then(res => {
       editSubmit.textContent = "Сохранить"
       userInfo.setUserInfo(res)
+      editPopup.close()
     })
     .catch(err => console.log(err))
   }
@@ -50,7 +51,7 @@ const editAvatar = new PopupWithForm(avatarContainer, (inputValue) => {
     editAvatarSubmitButton.textContent = "Сохранить"
     userInfo.setUserAvatar(res.avatar)
   })
-  .then(editAvatar.close())
+  .then(() => {editAvatar.close()})
   .catch(err => console.log(err))
 });
 
@@ -144,13 +145,13 @@ validateAvatar.enableValidation();
 
 addCardButton.addEventListener("click", () => {
   cardFormValidation.removeSpanError();
-  cardFormValidation.toggleButton(cardSubmitButton)
+  cardFormValidation.toggleButton()
   placePopup.open()
 });
 
 avatarButton.addEventListener("click", () => {
   validateAvatar.removeSpanError()
-  validateAvatar.toggleButton(editAvatarSubmitButton)
+  validateAvatar.toggleButton()
   editAvatar.open()
 })
 

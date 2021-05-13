@@ -18,13 +18,11 @@ class FormValidator {
     this._spanErrors = validationObject.spanErrors;
     this._form = document.querySelector(this._formSelector);
     this._inputs = Array.from(this._form.querySelectorAll(`${this._inputSelector}`));
-    this._errors = Array.from(this._form.querySelectorAll(`${this._spanErrors}`));
     this._button = this._form.querySelector(validationObject.submitButtonSelector)
   };
 
   /* убираем старые ошибки валидации */
 
-  /* извините, но я не соображаю как по другому, потому что структура которую я изначально написала, как оказалось - мега кривая */
   removeSpanError = () => {
     this._inputs.forEach((inputElement) => {
       const error = this._form.querySelector(`#${this._form.classList[0]}__${inputElement.name}__error`);
@@ -48,11 +46,11 @@ class FormValidator {
   };
 
   toggleButton = () => {
-    if(this._inputInvalid(this._inputs)){
-      this._disableButton(this._button, this._inactiveButtonClass)
+    if(this._inputInvalid()){
+      this._disableButton()
     } 
     else {  
-      this._enableButton(this._button, this._inactiveButtonClass)
+      this._enableButton()
     }
   };
 

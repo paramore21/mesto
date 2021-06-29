@@ -1,5 +1,10 @@
 # Проект 4: Место
 
+# Используемые технологии
+![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
+![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3)
+
 # Как запустить проект
 
 1) Скачать проект себе
@@ -27,7 +32,6 @@ npm run dev
 Помимо этого вы больше не сможете внести некорретные данные - добавлена валидация полей ввода
 
 Что включает в себя валидация полей:
-
 
 1) проверка длинны
 2) проверка вводимых данных -- если url - придется ввести url
